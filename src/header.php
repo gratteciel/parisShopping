@@ -3,7 +3,7 @@
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
         <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-          <img src="https://f4.bcbits.com/img/a1535648986_10.jpg" style="width:50px;" alt="">
+          <img src="../images/logo.png" style="width:50px;" alt="">
         </a>
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
