@@ -1,3 +1,16 @@
+<?php 
+  $logged=false;
+  if(isset($_SESSION['LOGGED'])){
+    if($_SESSION['LOGGED']){
+      $logged=true;
+    }
+    else
+      $logged=false;
+    
+  }
+  else
+    $logged=false;
+?>
 <main>
   <header class="p-3 text-white" style="background: rgb(210,210,210)">
     <div class="container">
@@ -15,8 +28,14 @@
         </ul>
 
         <div class="text-end">
-          <button type="button" class="btn btn-outline-light me-2">Connexion</button>
-          <button type="button" class="btn btn-warning">Inscription</button>
+        <?php if($logged) : ?>
+          <button type="button" class="btn btn-warning">Votre compte</button>
+          <button onclick="location.href='Utilisateur/deconnexion.php'" type="button" class="btn btn-outline-light me-2">Déconnexion</button>
+
+        <?php else: ?>
+          <button onclick="location.href='Utilisateur/connexion.php'" type="button" class="btn btn-outline-light me-2">Connexion</button>
+          <button onclick="location.href='Utilisateur/inscription.php'" type="button" class="btn btn-warning">Inscription</button>
+        <?php endif ?>
         </div>
       </div>
     </div>

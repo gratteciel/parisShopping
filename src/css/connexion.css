@@ -1,0 +1,28 @@
+.form-connexion{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.center {
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+a{
+    color:#ffc107;
+}
+
+a:visited{
+    color:#ffc107;
+}
+a:hover {
+    color:yellow;
+    opacity: 0.5;
+  }
+
+html, body{
+    height: 100%;
+}

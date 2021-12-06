@@ -24,7 +24,10 @@ if (!array_key_exists($page, $configPageList)) {
 <body class="text-white bg-dark">
 
 <div class="cover-container w-100 h-100 mx-auto">
-    <?php include("view/header.php"); ?>
+    <?php
+    include("view/header.php");
+    include('bdd/donneeSession.php');
+    ?>
     <main id="body">
         <?php include("view/page/{$page}.php"); ?>
     </main>

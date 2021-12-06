@@ -69,3 +69,6 @@ iframe
 
 }
 
+html, body{
+    height: 100%;
+}
