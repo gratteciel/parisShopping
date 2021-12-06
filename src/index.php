@@ -25,8 +25,8 @@ if (!array_key_exists($page, $configPageList)) {
 
 <div class="cover-container w-100 h-100 mx-auto">
     <?php
-    include("view/header.php");
     include('bdd/donneeSession.php');
+    include("view/header.php");
     ?>
     <main id="body">
         <?php include("view/page/{$page}.php"); ?>

@@ -1,9 +1,7 @@
-<!DOCTYPE html>
+
 <?php  $deco =isset($_REQUEST["deconnexion"])? $_REQUEST['deconnexion'] : NULL; 
     $co =isset($_REQUEST["connexion"])? $_REQUEST['connexion'] : NULL; 
 ?>
-<html>
-<body>
 
 <?php if($deco) : ?>
     <div class="alert alert-warning text-center" role="alert">
@@ -65,7 +63,7 @@ $productList = [
 
 <div class="Presentation_site p-3 pb-md-4 mx-auto text-center">
 
-    <h2 id="ventesFlash">Ventes Flash</h2>
+<!--<h2 id="ventesFlash">Ventes Flash</h2>-->
 
 
     <?php include count($productList) ? 'view/product/list.php' : '../product/noProducts.php'; ?>
@@ -75,7 +73,10 @@ $productList = [
 <!-- Partie Google Map -->
 <!--Google map-->
 <!--Google map-->
+<!--Google map-->
+<div id="map-container-google-1" class="z-depth-1-half map-container" style="height: 1000px">
 <iframe id="map" style="border: 0;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1312.6667734652472!2d2.2854332!3d48.8518497!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e6701b4f58251b%3A0x167f5a60fb94aa76!2sECE%20Paris%20Lyon!5e0!3m2!1sfr!2sfr!4v1638789588604!5m2!1sfr!2sfr" frameborder="0"></iframe>
+</div>
 
-</body>
-</html>
+<!--Google Maps-->
+

@@ -55,7 +55,7 @@
             </div>
         <?php endif; ?>
         <div class="center " style="height:90%;">
-                <a href="../view/page/accueil.php">
+                <a href="../index.php">
                     <img src="../../images/logo.png" style="width:150px;" alt="Logo">
                 </a>
                 <div style="margin-top:2%;max-width:400px;">
@@ -92,7 +92,7 @@
                         
                         <div class="center">
                             <button class="btn btn-primary form-connexion" type="submit" name="submit" style="width:50%;margin-top:15px;">Se connecter</button>
-                            <div class="text-danger" style="display:<?php echo $displayNoCompte ?>;">
+                            <div class="text-danger text-center" style="display:<?php echo $displayNoCompte ?>;">
                             Il n'existe aucun compte avec ce pseudo/mail et ce mot de passe
                         </div>
                         </div>

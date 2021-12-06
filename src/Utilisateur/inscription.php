@@ -86,7 +86,7 @@
     </head>
     <body class="text-light" >
         <div class="center " style="height:90%;">
-                <a href="../accueil.php">
+                <a href="../index.php">
                     <img src="../../images/logo.png" style="width:150px;" alt="Logo">
                 </a>
                 <div style="max-width:450px;">
