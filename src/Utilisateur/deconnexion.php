@@ -1,6 +1,7 @@
 <?php 
       include('../bdd/donneeSession.php'); 
        //Si appuie sur bouton de déconnection
+       $pseudo = $_SESSION['pseudo'] ;
         $_SESSION['LOGGED'] = false;
         $_SESSION['idUtilisateur'] = NULL;
         $_SESSION['pseudo'] = NULL;
@@ -10,7 +11,7 @@
         $_SESSION['nom'] = NULL;
         $_SESSION['numTel'] = NULL;
         
-        header('Location: ../accueil.php');
+        header('Location: ../accueil.php?deconnexion='.$pseudo);
         exit();
 
 ?>

@@ -1,5 +1,5 @@
 <?php
-    
+    $user =isset($_REQUEST["pseudo"])? $_REQUEST['pseudo'] : NULL;
     $displayNoCompte="none";
 
     //Connection à la BDD
@@ -24,7 +24,7 @@
             $_SESSION['nom'] = $resultat[0]['nom'];
             $_SESSION['numTel'] = $resultat[0]['numTel'];
 
-            header('Location: ../accueil.php');
+            header('Location: ../accueil.php?connexion=' . $resultat[0]['pseudo']);
             exit();
         }
         else{
@@ -48,6 +48,12 @@
         <title>Connexion - Paris Shopping</title>
     </head>
     <body class="text-light" >
+        <?php if($user) : ?>
+            <div class="alert alert-success text-center" role="alert">
+                Bravo  <?php echo $user ?>, vous avez bien créé votre compte! <br>
+                Maintenant, connectez vous :
+            </div>
+        <?php endif; ?>
         <div class="center " style="height:90%;">
                 <a href="../accueil.php">
                     <img src="../../images/logo.png" style="width:150px;" alt="Logo">

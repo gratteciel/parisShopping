@@ -1,6 +1,7 @@
 <?php
     
     $displayErreur="none";
+    $messageErreur="Il y a eu une erreur dans votre formulaire!";
 
     //Connection à la BDD
     include('../bdd/connectBDD.php');
@@ -36,15 +37,38 @@
         if($tailleMdp<8)
             $erreur++;
         
-        if($erreur!=0)
-            $displayErreur="visible";
+        
 
+
+        //Vérification si existe deja
+        $result = requeteSqlArray("SELECT mail from utilisateur where mail like '{$email}'",$pdo);
+
+        if(sizeof($result)>0){
+            $erreur=10000;
+            $messageErreur = "Ce mail est deja enregistré sur notre site";
+        }
+
+        $result2 = requeteSqlArray("SELECT pseudo from utilisateur where pseudo like '{$pseudo}' or pseudo like '{$pseudo}'",$pdo);
+
+        if(sizeof($result2)>0){
+            if($erreur==10000){
+                $messageErreur = "Ce mail et ce pseudo sont deja enregistrés sur notre site";
+            }
+            else
+            $messageErreur = "Ce pseudo est deja enregistré sur notre site";
+            $erreur++;
+        }
+        
+        if($erreur!=0)
+            $displayErreur="visible";    
         else
         {
-            requeteSqlArray("INSERT INTO client (prenom, nom, ville, age) VALUES('Rébecca', 'Armand','Saint-Didier-des-Bois', 24);",$pdo);
+            requeteSqlArray("INSERT INTO Utilisateur (prenom, nom, mail, mdp, estAdmin, pseudo, numTel) VALUES('{$prenom}', '{$nom}','{$email}',password('{$mdp}'),0,'{$pseudo}','{$numTel}');",$pdo);
+           
+            header('Location: connexion.php?pseudo='.$pseudo);
+            exit();
         }
-        //header('Location: connexion.php');
-        //exit();
+        
     }
    
   
@@ -127,7 +151,7 @@
                             <div class="center">
                                 <button class="btn btn-primary form-connexion" type="submit" name="submit" style="width:30%;margin-top:15px;">Inscription</button>
                                 <div class="text-danger" style="display:<?php echo $displayErreur ?>;">
-                                Il y a eu une erreur dans votre formulaire!
+                                <?php echo $messageErreur ?>
                             </div>
                             </div>
 

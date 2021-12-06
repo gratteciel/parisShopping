@@ -1,4 +1,6 @@
-
+<?php  $deco =isset($_REQUEST["deconnexion"])? $_REQUEST['deconnexion'] : NULL; 
+    $co =isset($_REQUEST["connexion"])? $_REQUEST['connexion'] : NULL; 
+?>
 <html>
 <head>
     <!-- Include du CSS Bootstrap -->
@@ -11,7 +13,17 @@
 <header>
     <?php include('bdd/donneeSession.php'); include("header.php");  ?>
 </header>
-    
+<?php if($deco) : ?>
+    <div class="alert alert-warning text-center" role="alert">
+        Vous vous êtes déconnecté du compte :   <?php echo $deco ?>
+    </div>
+<?php endif; ?>
+
+<?php if($co) : ?>
+    <div class="alert alert-success text-center" role="alert">
+        Vous vous êtes connecté au compte :   <?php echo $co ?> 
+    </div>
+<?php endif; ?>
 <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 
 
