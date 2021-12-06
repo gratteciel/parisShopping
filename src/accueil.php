@@ -1,3 +1,4 @@
+
 <html>
 <head>
     <!-- Include du CSS Bootstrap -->
@@ -8,9 +9,9 @@
 </head>
 <body>
 <header>
-    <?php include("header.php"); ?>
+    <?php include('bdd/donneeSession.php'); include("header.php");  ?>
 </header>
-
+    
 <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 
 

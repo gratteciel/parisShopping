@@ -15,8 +15,13 @@
         </ul>
 
         <div class="text-end">
-          <button type="button" class="btn btn-outline-light me-2">Connexion</button>
+        <?php if($_SESSION['LOGGED']) : ?>
+          <button onclick="location.href='deconnexion.php'" type="button" class="btn btn-outline-light me-2">Déconnexion</button>
+
+        <?php else: ?>
+          <button onclick="location.href='connexion.php'" type="button" class="btn btn-outline-light me-2">Connexion</button>
           <button type="button" class="btn btn-warning">Inscription</button>
+        <?php endif ?>
         </div>
       </div>
     </div>
