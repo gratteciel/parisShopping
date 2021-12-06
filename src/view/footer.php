@@ -1,5 +1,5 @@
 
-<footer id="footer" class="pt-4 my-md-5 pt-md-5 border-top">
+<footer  class="pt-4 my-md-5 pt-md-5 border-top">
     <div class="row">
         <div class="col-12 col-md">
             <img class="mb-2" src="../images/logo.png" alt="" width="52" height="35">
@@ -16,15 +16,15 @@
         <div class="col-6 col-md">
             <h5 style="color: white">Notre projet</h5>
             <ul class="list-unstyled text-small">
-                <li class="mb-1"><a class="link-secondary text-decoration-none" href="equipe.php">L'Equipe</a></li>
-                <li class="mb-1"><a class="link-secondary text-decoration-none" href="site.php">Le Site</a></li>
-                <li class="mb-1"><a class="link-secondary text-decoration-none" href="cahier_des_charges.php">Cahier des charges</a></li>
+                <li class="mb-1"><a class="link-secondary text-decoration-none" href="?page=equipe">L'Equipe</a></li>
+                <li class="mb-1"><a class="link-secondary text-decoration-none" href="?page=site">Le Site</a></li>
+                <li class="mb-1"><a class="link-secondary text-decoration-none" href="?page=cahier_des_charges">Cahier des charges</a></li>
             </ul>
         </div>
         <div class="col-6 col-md">
             <h5 style="color: white">A propos</h5>
             <ul class="list-unstyled text-small">
-                <li class="mb-1"><a class="link-secondary text-decoration-none" href="mentions.php">Mentions légales</a></li>
+                <li class="mb-1"><a class="link-secondary text-decoration-none" href="?page=mentions">Mentions légales</a></li>
             </ul>
         </div>
     </div>

@@ -7,11 +7,11 @@
         </a>
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="accueil.php" class="nav-link px-2 text-secondary">Accueil</a></li>
-          <li><a href="toutParcourir.php" class="nav-link px-2 text-dark">Tout Parcourir </a></li>
-          <li><a href="notification.php" class="nav-link px-2 text-dark">Notifications</a></li>
-          <li><a href="panier.php" class="nav-link px-2 text-dark">Panier</a></li>
-          <li><a href="votre_compte.php" class="nav-link px-2 text-dark">Votre Compte</a></li>
+          <li><a href="?page=accueil" class="nav-link px-2 text-secondary">Accueil</a></li>
+          <li><a href="?page=toutParcourir" class="nav-link px-2 text-dark">Tout Parcourir </a></li>
+          <li><a href="?page=notification" class="nav-link px-2 text-dark">Notifications</a></li>
+          <li><a href="?page=panier" class="nav-link px-2 text-dark">Panier</a></li>
+          <li><a href="?votre_compte" class="nav-link px-2 text-dark">Votre Compte</a></li>
         </ul>
 
         <div class="text-end">
