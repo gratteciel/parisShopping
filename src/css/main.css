@@ -1,11 +1,21 @@
 body{
     --bs-bg-opacity: 1;
     background-color: rgba(var(--bs-dark-rgb),var(--bs-bg-opacity))!important;
-
+    margin: 0 0 10%;
+    padding:0;
+    height:100%;
 }
 
-
-
+#body {
+    padding:10px;
+    padding-bottom:60px;   /* Height of the footer */
+}
+#footer {
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:70px;   /* Height of the footer */
+}
 
 .produit
 {
@@ -27,6 +37,7 @@ body{
     text-align: center;
 
 }
+
 #ventesFlash
 {
     color: red;
@@ -52,6 +63,7 @@ iframe
     display: inline-block; /* Needed to add space between the bullet and the text */
     width: 1em; /* Also needed for space (tweak if needed) */
     margin-left: -1em; /* Also needed for space (tweak if needed) */
+
 
 
 }

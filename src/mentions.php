@@ -16,9 +16,9 @@
 
 
 <div class="cover-container d-flex w-100 h-100 mx-auto flex-column">
-    <header>
+
         <?php include("header.php"); ?>
-    </header>
+
 
     <main>
 
@@ -37,9 +37,8 @@
         </div>
     </main>
 
-    <footer>
+
         <?php include("footer.php"); ?>
-    </footer>
 </div>
 
 

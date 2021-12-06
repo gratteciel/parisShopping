@@ -4,19 +4,18 @@
     <title>Equipe</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/cover/">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css?<?php echo time();?>">
     <!-- Bootstrap core CSS -->
     <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="d-flex h-100  text-white bg-dark">
+<body class="text-white bg-dark">
 
+<div class="cover-container w-100 h-100 mx-auto">
 
-<div class="cover-container d-flex w-100 h-100 mx-auto flex-column">
-    <header>
         <?php include("header.php"); ?>
-    </header>
 
-    <main>
+
+    <main id="body">
 
         <div class="container px-4 py-5" id="featured-3">
             <h2 class="pb-2 border-bottom">Présentation de l'équipe de développeurs</h2>
@@ -49,10 +48,10 @@
         </div>
     </main>
 
-    <footer>
-        <?php include("footer.php"); ?>
-    </footer>
+
 </div>
+
+    <?php include("footer.php"); ?>
 
 
 
