@@ -16,11 +16,12 @@
 
         <div class="text-end">
         <?php if($_SESSION['LOGGED']) : ?>
-          <button onclick="location.href='deconnexion.php'" type="button" class="btn btn-outline-light me-2">Déconnexion</button>
+          <button type="button" class="btn btn-warning">Votre compte</button>
+          <button onclick="location.href='Utilisateur/deconnexion.php'" type="button" class="btn btn-outline-light me-2">Déconnexion</button>
 
         <?php else: ?>
-          <button onclick="location.href='connexion.php'" type="button" class="btn btn-outline-light me-2">Connexion</button>
-          <button type="button" class="btn btn-warning">Inscription</button>
+          <button onclick="location.href='Utilisateur/connexion.php'" type="button" class="btn btn-outline-light me-2">Connexion</button>
+          <button onclick="location.href='Utilisateur/inscription.php'" type="button" class="btn btn-warning">Inscription</button>
         <?php endif ?>
         </div>
       </div>

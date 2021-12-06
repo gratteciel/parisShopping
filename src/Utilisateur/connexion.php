@@ -3,8 +3,8 @@
     $displayNoCompte="none";
 
     //Connection à la BDD
-    include('bdd/connectBDD.php');
-    include('bdd/donneeSession.php'); 
+    include('../bdd/connectBDD.php');
+    include('../bdd/donneeSession.php'); 
 
     //Déclaration des variables
     $emailOuPseudo = isset($_POST["mail"])? $_POST["mail"] : "";
@@ -24,7 +24,7 @@
             $_SESSION['nom'] = $resultat[0]['nom'];
             $_SESSION['numTel'] = $resultat[0]['numTel'];
 
-            header('Location: accueil.php');
+            header('Location: ../accueil.php');
             exit();
         }
         else{
@@ -41,18 +41,18 @@
 <html>
     <head>
         <!-- Include du CSS Bootstrap -->
-        <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../assets/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/pricing/">
-        <link rel="stylesheet" type="text/css" href="css/main.css">
-        <link rel="stylesheet" type="text/css" href="css/connexion.css">
+        <link rel="stylesheet" type="text/css" href="../css/main.css">
+        <link rel="stylesheet" type="text/css" href="../css/connexion.css">
         <title>Connexion - Paris Shopping</title>
     </head>
     <body class="text-light" >
         <div class="center " style="height:90%;">
-                <a href="accueil.php">
-                    <img src="../images/logo.png" style="width:150px;" alt="Logo">
+                <a href="../accueil.php">
+                    <img src="../../images/logo.png" style="width:150px;" alt="Logo">
                 </a>
-                <div style="margin-top:2%;">
+                <div style="margin-top:2%;max-width:400px;">
                 <?php if($_SESSION['LOGGED']) : ?>
 
 
@@ -63,7 +63,7 @@
                         <button class="btn btn-primary form-connexion" type="submit" name="submitDeconnection" style="width:50%;margin-top:15px;">Se déconnecter</button>
                     </div>
                 
-                </form>
+                    </form>
                 <?php else : ?>
                     <form action="" method="post">
                     
@@ -103,7 +103,7 @@
             <p class="text-center">Vous n'avez pas encore de compte? <br> <a href="inscription.php">Cliquez-ici</a></p>
             <?php endif; ?>
         
-        <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="../../../assets/dist/js/bootstrap.bundle.min.js"></script>
 
     
     </body>
