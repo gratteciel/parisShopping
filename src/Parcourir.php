@@ -17,7 +17,7 @@
 
 
 
-$database = "books";
+$database = "git";
 $productList = Database::getProductListFromDatabase();
 
 $db_handle = mysqli_connect('localhost', 'root', '');
