@@ -5,7 +5,7 @@
             <small class="d-block mb-3 text-muted">&copy; 2020-2021</small>
         </div>
         <div class="col-6 col-md">
-            <h5>Nous contacter</h5>
+            <h5 style="color: white">Nous contacter</h5>
             <ul class="list-unstyled text-small">
                 <li class="mb-1">Mail : <a class="link-secondary text-decoration-none" href="mailto:parisShopping@yahoo.com">parisShopping@yahoo.com</a></li>
                 <li class="mb-1">Téléphone : <a class="link-secondary text-decoration-none" href="tel:02-41-37-65-24<">02 41 37 65 24</a></li>
@@ -13,17 +13,17 @@
             </ul>
         </div>
         <div class="col-6 col-md">
-            <h5>Notre projet</h5>
+            <h5 style="color: white">Notre projet</h5>
             <ul class="list-unstyled text-small">
-                <li class="mb-1"><a class="link-secondary text-decoration-none" href="equipe.html">L'Equipe</a></li>
-                <li class="mb-1"><a class="link-secondary text-decoration-none" href="site.html">Le Site</a></li>
-                <li class="mb-1"><a class="link-secondary text-decoration-none" href="cahier_des_charges.html">Cahier des charges</a></li>
+                <li class="mb-1"><a class="link-secondary text-decoration-none" href="equipe.php">L'Equipe</a></li>
+                <li class="mb-1"><a class="link-secondary text-decoration-none" href="site.php">Le Site</a></li>
+                <li class="mb-1"><a class="link-secondary text-decoration-none" href="cahier_des_charges.php">Cahier des charges</a></li>
             </ul>
         </div>
         <div class="col-6 col-md">
-            <h5>A propos</h5>
+            <h5 style="color: white">A propos</h5>
             <ul class="list-unstyled text-small">
-                <li class="mb-1"><a class="link-secondary text-decoration-none" href="mentions.html">Mentions légales</a></li>
+                <li class="mb-1"><a class="link-secondary text-decoration-none" href="mentions.php">Mentions légales</a></li>
             </ul>
         </div>
     </div>

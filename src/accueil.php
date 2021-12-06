@@ -4,15 +4,18 @@
     <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/pricing/">
     <link rel="stylesheet" type="text/css" href="css/main.css">
-    <title>Acceuil</title>
+    <title>Accueil</title>
 </head>
 <body>
-<?php include("header.php"); ?>
+<header>
+    <?php include("header.php"); ?>
+</header>
+
 <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 
 
 <div class="Presentation_site p-3 pb-md-4 mx-auto text-center">
-    <h1 class="display-4 fw-normal">Présentation du site</h1>
+    <h1 style="color: white" class="display-4 fw-normal">Présentation du site</h1>
     <p class="fs-5 text-muted">Voici une petite description de notre site d'eshopping sur paris </p>
     <!-- Mettre une photo du shopping -->
 </div>
@@ -75,5 +78,7 @@ $productList = [
 
 
 </body>
-<?php include("footer.php"); ?>
+<footer>
+    <?php include("footer.php"); ?>
+</footer>
 </html>

@@ -1,3 +1,12 @@
+body{
+    --bs-bg-opacity: 1;
+    background-color: rgba(var(--bs-dark-rgb),var(--bs-bg-opacity))!important;
+
+}
+
+
+
+
 .produit
 {
     border: 2px solid #00FFFF;
@@ -34,3 +43,8 @@ iframe
 
 
 }
+footer
+{
+
+}
+
