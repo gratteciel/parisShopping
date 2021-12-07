@@ -3,6 +3,12 @@
     $displayErreur="none";
     $messageErreur="Il y a eu une erreur dans votre formulaire!";
 
+    $logged=false;
+    if(isset($_SESSION['LOGGED'])){
+        if($_SESSION['LOGGED'])
+            $logged=true;
+    }
+
     //Connection à la BDD
     include('../bdd/connectBDD.php');
     include('../bdd/donneeSession.php'); 
@@ -90,7 +96,7 @@
                     <img src="../../images/logo.png" style="width:150px;" alt="Logo">
                 </a>
                 <div style="max-width:450px;">
-                <?php if($_SESSION['LOGGED']) : ?>
+                <?php if($logged) : ?>
 
 
                    <p>Vous etes connecté avec le pseudo : <?php echo $_SESSION['pseudo'] ?></p> 

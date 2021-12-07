@@ -16,6 +16,10 @@ $configPageList = [
         'title'       => 'Mentions',
         'description' => '...',
     ],
+    'votre_compte' => [
+        'title'       => 'Votre compte',
+        'description' => '...',
+    ],
     'site' => [
         'title'       => 'Site',
         'description' => '...',

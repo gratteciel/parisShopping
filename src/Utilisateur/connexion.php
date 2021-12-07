@@ -1,7 +1,11 @@
 <?php
     $user =isset($_REQUEST["pseudo"])? $_REQUEST['pseudo'] : NULL;
     $displayNoCompte="none";
-
+    $logged=false;
+    if(isset($_SESSION['LOGGED'])){
+        if($_SESSION['LOGGED'])
+            $logged=true;
+    }
     //Connection à la BDD
     include('../bdd/connectBDD.php');
     include('../bdd/donneeSession.php'); 
@@ -59,7 +63,7 @@
                     <img src="../../images/logo.png" style="width:150px;" alt="Logo">
                 </a>
                 <div style="margin-top:2%;max-width:400px;">
-                <?php if($_SESSION['LOGGED']) : ?>
+                <?php if($logged) : ?>
 
 
                    <p>Vous etes connecté avec le pseudo : <?php echo $_SESSION['pseudo'] ?></p> 
@@ -93,7 +97,7 @@
                         <div class="center">
                             <button class="btn btn-primary form-connexion" type="submit" name="submit" style="width:50%;margin-top:15px;">Se connecter</button>
                             <div class="text-danger text-center" style="display:<?php echo $displayNoCompte ?>;">
-                            Il n'existe aucun compte avec ce pseudo/mail et ce mot de passe
+                            Il n'existe aucun compte <br> avec ce pseudo/mail et ce mot de passe
                         </div>
                         </div>
 
@@ -105,7 +109,7 @@
                 <?php endif; ?>
                 </div>
             </div>
-            <?php if(!$_SESSION['LOGGED']) : ?>
+            <?php if(!$logged) : ?>
             <p class="text-center">Vous n'avez pas encore de compte? <br> <a href="inscription.php">Cliquez-ici</a></p>
             <?php endif; ?>
         

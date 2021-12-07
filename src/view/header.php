@@ -15,7 +15,7 @@
   <header class="p-3 text-white" style="background: rgb(210,210,210)">
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        <a class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+        <a href="index.php" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
           <img src="../images/logo.png" style="width:50px;" alt="">
         </a>
 
@@ -24,12 +24,12 @@
           <li><a href="?page=toutParcourir" class="nav-link px-2 text-dark">Tout Parcourir </a></li>
           <li><a href="?page=notification" class="nav-link px-2 text-dark">Notifications</a></li>
           <li><a href="?page=panier" class="nav-link px-2 text-dark">Panier</a></li>
-          <li><a href="?votre_compte" class="nav-link px-2 text-dark">Votre Compte</a></li>
+          
         </ul>
 
         <div class="text-end">
         <?php if($logged) : ?>
-          <button type="button" class="btn btn-warning">Votre compte</button>
+          <button onclick="location.href='?page=votre_compte'" type="button" class="btn btn-warning">Votre compte</button>
           <button onclick="location.href='Utilisateur/deconnexion.php'" type="button" class="btn btn-outline-light me-2">Déconnexion</button>
 
         <?php else: ?>
@@ -41,6 +41,9 @@
     </div>
   </header>
 </main>
+<?php  $deco =isset($_REQUEST["deconnexion"])? $_REQUEST['deconnexion'] : NULL; 
+    $co =isset($_REQUEST["connexion"])? $_REQUEST['connexion'] : NULL; 
+?>
 
 
    
