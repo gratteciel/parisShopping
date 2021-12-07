@@ -72,3 +72,11 @@ html, body{
     height: 100%;
 }
 
+.aPanier{
+  
+    outline: none;
+    text-decoration: none;
+    font-weight: bold;
+    
+  
+}
