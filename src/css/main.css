@@ -9,7 +9,8 @@ body{
 
 #body {
     padding:10px;
-    padding-bottom:60px;   /* Height of the footer */
+    padding-bottom:60px;
+
 }
 
 
@@ -41,6 +42,7 @@ iframe
 .Nom_du_produit
 {
     text-align: center;
+    color: black;
 
 }
 
