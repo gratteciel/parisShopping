@@ -20,6 +20,10 @@ $configPageList = [
         'title'       => 'Site',
         'description' => '...',
     ],
+    'toutParcourir' =>[
+      'title'         => 'Parcourir articles',
+      'description'   => '...',
+    ],
     'notfound' => [
         'title'       => '....Main Title...',
         'description' => '...',
