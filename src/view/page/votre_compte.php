@@ -16,6 +16,7 @@
             $paiements = requeteSqlArray("SELECT * from paiement where utilisateurId = '{$_SESSION['idUtilisateur']}'",$pdo);
             $nombrePaiements = 0;
             $nombrePaiements = sizeof($paiements);
+          
          }
              
      }
@@ -25,8 +26,6 @@
             return $_SESSION[$stringValeur];
         }
         return "Erreur de chargement de ". $stringValeur;
-
-        
      }
 ?>
 
@@ -40,7 +39,7 @@
 <p  class="text-light">pseudo: <?php echo afficherValeurSession('pseudo');  ?></p>
 <p  class="text-light">mail: <?php echo afficherValeurSession('mail'); ?></p>
 <h2  class="text-light">Nombres d'adresses enregistrées : <?php echo $nombreAdresses ?></p>
-<h2  class="text-light">Nombres de moyens de paiement enregistré : <?php echo $nombrePaiements ?></p>
+<h2  class="text-light">Nombres de moyens de paiement enregistrés : <?php echo $nombrePaiements ?></p>
 
 <?php else : ?>
     <div class="d-flex justify-content-center text-danger">Vous n'êtes pas connecté</div>
