@@ -1,6 +1,16 @@
 <?php
+// database connexion data
+const MY_PDO_HOSTNAME = 'localhost';
+const MY_PDO_PORT     = 3306;
+const MY_PDO_DATABASE = 'parisShopping';
+const MY_PDO_USERNAME = 'root';
+const MY_PDO_PASSWORD = '';
+
+// main folder/directory of our project
+const PROJECT_ROOT_DIR = __DIR__ . '/..';
+
 $configPageList = [
-    'accueil' => [
+    'accueil'            => [
         'title'       => 'Accueil',
         'description' => '...',
     ],
@@ -8,28 +18,28 @@ $configPageList = [
         'title'       => 'Cahier des charges',
         'description' => '...',
     ],
-    'equipe' => [
+    'equipe'             => [
         'title'       => 'Equipe The Best',
         'description' => '...',
     ],
-    'mentions' => [
+    'mentions'           => [
         'title'       => 'Mentions',
         'description' => '...',
     ],
-    'votre_compte' => [
+    'votre_compte'       => [
         'title'       => 'Votre compte',
         'description' => '...',
     ],
-    'site' => [
+    'site'               => [
         'title'       => 'Site',
         'description' => '...',
     ],
-    'panier' => [
-        'title' => 'Mon Panier',
+    'panier'             => [
+        'title'       => 'Mon Panier',
         'description' => '...',
     ],
-    'notfound' => [
+    'notfound'           => [
         'title'       => '....Main Title...',
         'description' => '...',
-    ]
+    ],
 ];

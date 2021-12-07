@@ -1,15 +1,15 @@
-<?php 
-  $logged=false;
-  if(isset($_SESSION['LOGGED'])){
-    if($_SESSION['LOGGED']){
-      $logged=true;
-    }
-    else
-      $logged=false;
-    
-  }
-  else
-    $logged=false;
+<?php
+//$logged = false;
+//if (isset($_SESSION['LOGGED'])) {
+//    if ($_SESSION['LOGGED']) {
+//        $logged = true;
+//    } else {
+//        $logged = false;
+//    }
+//
+//} else {
+//    $logged = false;
+//}
 ?>
 <main>
   <header class="p-3 text-white" style="background: rgb(210,210,210)">
@@ -26,9 +26,8 @@
           <li><a href="?page=panier" class="nav-link px-2 text-dark">Panier</a></li>
           
         </ul>
-
         <div class="text-end">
-        <?php if($logged) : ?>
+        <?php if(LOGGED) : ?>
           <button onclick="location.href='?page=votre_compte'" type="button" class="btn btn-warning">Votre compte</button>
           <button onclick="location.href='Utilisateur/deconnexion.php'" type="button" class="btn btn-outline-light me-2">Déconnexion</button>
 

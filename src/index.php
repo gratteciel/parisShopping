@@ -1,5 +1,8 @@
 <?php
+
+include_once __DIR__ . '/bdd/donneeSession.php';
 include '../config/config.php';
+include_once PROJECT_ROOT_DIR . '/src/bdd/connectBDD.php';
 
 if (empty($_GET['page'])) {
     // default page
@@ -25,7 +28,6 @@ if (!array_key_exists($page, $configPageList)) {
 
 <div class="cover-container w-100 h-100 mx-auto">
     <?php
-    include('bdd/donneeSession.php');
     include("view/header.php");
     ?>
     <main id="body">

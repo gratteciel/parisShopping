@@ -1,46 +1,26 @@
 <?php
-    
-     $logged=false;
-     if(isset($_SESSION['LOGGED'])){
-         if($_SESSION['LOGGED']){ //Si connecté
-            //Connexion à la base de donnée
-            include('bdd/connectBDD.php');
-            $logged=true;
+include_once PROJECT_ROOT_DIR . '/src/include/loginStatus.php';
+include_once PROJECT_ROOT_DIR . '/src/include/Utilisateur.php';
 
-            //Chargement des adresses
-            $adresses = requeteSqlArray("SELECT * from adresse where utilisateurId = '{$_SESSION['idUtilisateur']}'",$pdo);
-            $nombreAdresses = 0;
-            $nombreAdresses = sizeof($adresses);
+if (empty($idUtilisateur)) {
+    // redirect to user login
+    header('Location: Utilisateur/connexion.php');
+    exit();
+}
 
-            //Chargement des moyens de paiement
-            $paiements = requeteSqlArray("SELECT * from paiement where utilisateurId = '{$_SESSION['idUtilisateur']}'",$pdo);
-            $nombrePaiements = 0;
-            $nombrePaiements = sizeof($paiements);
-          
-         }
-             
-     }
-
-     function afficherValeurSession($stringValeur){
-        if(isset($_SESSION[$stringValeur])){
-            return $_SESSION[$stringValeur];
-        }
-        return "Erreur de chargement de ". $stringValeur;
-     }
+$addressList = Utilisateur::addressList($pdo, $idUtilisateur);
+$cardList = Utilisateur::cardList($pdo, $idUtilisateur);
 ?>
-
-<?php if($logged) : ?>
 <div class="Presentation_site p-3 pb-md-4 mx-auto text-center">
     <h1 style="color: white" class="display-4 fw-normal">Votre compte</h1>
     
 </div>
-<p  class="text-light">Nom: <?php echo afficherValeurSession('nom'); ?></p>
-<p  class="text-light">prenom: <?php echo afficherValeurSession('prenom'); ?></p>
-<p  class="text-light">pseudo: <?php echo afficherValeurSession('pseudo');  ?></p>
-<p  class="text-light">mail: <?php echo afficherValeurSession('mail'); ?></p>
-<h2  class="text-light">Nombres d'adresses enregistrées : <?php echo $nombreAdresses ?></p>
-<h2  class="text-light">Nombres de moyens de paiement enregistrés : <?php echo $nombrePaiements ?></p>
+<p  class="text-light">Nom: <?php echo Utilisateur::afficherValeurSession('nom'); ?></p>
+<p  class="text-light">prenom: <?php echo Utilisateur::afficherValeurSession('prenom'); ?></p>
+<p  class="text-light">pseudo: <?php echo Utilisateur::afficherValeurSession('pseudo');  ?></p>
+<p  class="text-light">mail: <?php echo Utilisateur::afficherValeurSession('mail'); ?></p>
+<h2  class="text-light">Nombres d'adresses enregistrées : <?php echo count($addressList); ?></h2>
+<h2  class="text-light">Nombres de moyens de paiement enregistrés : <?php echo count($cardList); ?></h2>
 
-<?php else : ?>
-    <div class="d-flex justify-content-center text-danger">Vous n'êtes pas connecté</div>
-<?php endif; ?>
+<!--    <div class="d-flex justify-content-center text-danger">Vous n'êtes pas connecté</div>
+-->
