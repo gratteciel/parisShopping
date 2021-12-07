@@ -1,1 +1,1 @@
-<h3>No products found!</h3>
+<h3>Pas d'articles!</h3>

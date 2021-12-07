@@ -29,11 +29,16 @@ if (!array_key_exists($page, $configPageList)) {
     include("view/header.php");
     ?>
     <main id="body">
+        <!-- Permet d'afficher les alerts -->
+        <div id="afficheAlert"></div>
+
         <?php include("view/page/{$page}.php"); ?>
     </main>
 </div>
 
 <?php include("view/footer.php"); ?>
+<!-- Permet les interactions avec les alerts -->
+<script src="script_js/alert.js"></script>
 
 </body>
 </html>

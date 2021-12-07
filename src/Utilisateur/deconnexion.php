@@ -11,7 +11,7 @@
         $_SESSION['nom'] = NULL;
         $_SESSION['numTel'] = NULL;
         
-        header('Location: ../index.php?deconnexion='.$pseudo);
+        header('Location: ../index.php?alerts=1&tA=deconnect&valA='.$pseudo);
         exit();
 
 ?>

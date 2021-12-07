@@ -24,7 +24,7 @@ $configPageList = [
         'title'       => 'Site',
         'description' => '...',
     ],
-    'panier' => [
+    'panier/panier' => [
         'title' => 'Mon Panier',
         'description' => '...',
     ],

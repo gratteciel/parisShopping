@@ -28,7 +28,7 @@
             $_SESSION['nom'] = $resultat[0]['nom'];
             $_SESSION['numTel'] = $resultat[0]['numTel'];
 
-            header('Location: ../index.php?connexion=' . $resultat[0]['pseudo']);
+            header('Location: ../index.php?alerts=1&tA=connect&valA=' . $resultat[0]['pseudo']);
             exit();
         }
         else{
