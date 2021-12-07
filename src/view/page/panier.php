@@ -8,17 +8,4 @@
     </svg>
     <h1 class="pb-2 border-bottom">Mon panier</h1>
 
-    <!-- AFfichage du panier depuis la session -->
-    <div>
-
-        <?php
-        /*
-            $query = $pdo->query("SELECT panierArticle from 'utilisateur'");
-
-        */
-        ?>
-
-    </div>
-
-
 </div>
