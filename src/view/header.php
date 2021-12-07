@@ -31,7 +31,7 @@
         <div class="text-end">
         <?php if($logged) : ?>
           <button onclick="location.href='?page=votre_compte'" type="button" class="btn btn-warning">Votre compte</button>
-          <button onclick="location.href='Utilisateur/deconnexion.php'" type="button" class="btn btn-outline-light me-2">Déconnexion</button>
+          <button onclick="location.href='script_php/Utilisateur/deconnexion.php'" type="button" class="btn btn-outline-light me-2">Déconnexion</button>
 
         <?php else: ?>
           <button onclick="location.href='Utilisateur/connexion.php'" type="button" class="btn btn-outline-light me-2">Connexion</button>

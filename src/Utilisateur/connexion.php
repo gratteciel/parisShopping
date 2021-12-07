@@ -2,13 +2,17 @@
     $user =isset($_REQUEST["pseudo"])? $_REQUEST['pseudo'] : NULL;
     $displayNoCompte="none";
     $logged=false;
+
+    include('../bdd/donneeSession.php'); 
+
     if(isset($_SESSION['LOGGED'])){
         if($_SESSION['LOGGED'])
             $logged=true;
     }
+    
     //Connection à la BDD
     include('../bdd/connectBDD.php');
-    include('../bdd/donneeSession.php'); 
+
 
     //Déclaration des variables
     $emailOuPseudo = isset($_POST["mail"])? $_POST["mail"] : "";
@@ -37,7 +41,7 @@
 
         
     }
-
+   
   
 ?>
 
@@ -67,7 +71,7 @@
 
 
                    <p>Vous etes connecté avec le pseudo : <?php echo $_SESSION['pseudo'] ?></p> 
-                   <form action="deconnexion.php" method="post">
+                   <form action="../script_php/Utilisateur/deconnexion.php" method="post">
                     
                     <div class="center">
                         <button class="btn btn-primary form-connexion" type="submit" name="submitDeconnection" style="width:50%;margin-top:15px;">Se déconnecter</button>

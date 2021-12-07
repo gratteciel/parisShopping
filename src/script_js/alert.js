@@ -28,6 +28,10 @@ if(get('alerts'))
             message= "Vous avez bien supprimé <b>" + valeurAlert + "</b> de votre panier";
             type="danger";
             break;
+        case 'addA':
+            message= "Vous avez bien ajouté <b>" + valeurAlert + "</b> à votre panier";
+            type="success";
+            break;
     }
     
 }

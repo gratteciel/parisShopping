@@ -1,8 +1,3 @@
-
-
-
-
-
 <div class="Presentation_site p-3 pb-md-4 mx-auto text-center">
     <h1 style="color: white" class="display-4 fw-normal">Présentation du site</h1>
     <p class="fs-5 text-muted">Voici une petite description de notre site d'eshopping sur paris </p>

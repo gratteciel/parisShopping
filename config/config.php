@@ -4,6 +4,10 @@ $configPageList = [
         'title'       => 'Accueil',
         'description' => '...',
     ],
+    'article' => [
+        'title'       => 'Article',
+        'description' => '...',
+    ],
     'cahier_des_charges' => [
         'title'       => 'Cahier des charges',
         'description' => '...',

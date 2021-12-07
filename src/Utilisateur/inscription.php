@@ -3,6 +3,8 @@
     $displayErreur="none";
     $messageErreur="Il y a eu une erreur dans votre formulaire!";
 
+    include('../bdd/donneeSession.php'); 
+
     $logged=false;
     if(isset($_SESSION['LOGGED'])){
         if($_SESSION['LOGGED'])
@@ -11,7 +13,7 @@
 
     //Connection à la BDD
     include('../bdd/connectBDD.php');
-    include('../bdd/donneeSession.php'); 
+    
    
     //Déclaration des variables
     $email = isset($_POST["mail"])? $_POST["mail"] : "";
@@ -95,12 +97,12 @@
                 <a href="../index.php">
                     <img src="../../images/logo.png" style="width:150px;" alt="Logo">
                 </a>
-                <div style="max-width:450px;">
+                <div style="margin-top:2%;max-width:450px;">
                 <?php if($logged) : ?>
 
 
                    <p>Vous etes connecté avec le pseudo : <?php echo $_SESSION['pseudo'] ?></p> 
-                   <form action="deconnexion.php" method="post">
+                   <form action="../script_php/Utilisateur/deconnexion.php" method="post">
                     
                     <div class="center">
                         <button class="btn btn-primary form-connexion" type="submit" name="submitDeconnection" style="width:50%;margin-top:15px;">Se déconnecter</button>
