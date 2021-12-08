@@ -1,16 +1,3 @@
-<?php
-//$logged = false;
-//if (isset($_SESSION['LOGGED'])) {
-//    if ($_SESSION['LOGGED']) {
-//        $logged = true;
-//    } else {
-//        $logged = false;
-//    }
-//
-//} else {
-//    $logged = false;
-//}
-?>
 <main>
   <header class="p-3 text-white" style="background: rgb(210,210,210)">
     <div class="container">
@@ -23,7 +10,7 @@
           <li><a href="?page=accueil" class="nav-link px-2 text-secondary">Accueil</a></li>
           <li><a href="?page=toutParcourir" class="nav-link px-2 text-dark">Tout Parcourir </a></li>
           <?php if(LOGGED) : ?>
-          <li><a href="?page=notification" class="nav-link px-2 text-dark">Notifications</a></li>
+          <li><a href="?page=notifications" class="nav-link px-2 text-dark">Notifications</a></li>
           <li><a href="?page=panier/panier" class="nav-link px-2 text-dark">Panier</a></li>
           <?php endif ?>
         </ul>

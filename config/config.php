@@ -42,8 +42,17 @@ $configPageList = [
         'title' => 'Mon Panier',
         'description' => '...',
     ],
+    'toutParcourir' => [
+        'title' => 'Mon Panier',
+        'description' => '...',
+    ],
+    'notifications' => [
+        'title' => 'Mon Panier',
+        'description' => '...',
+    ],
     'notfound'           => [
         'title'       => '....Main Title...',
         'description' => '...',
     ],
+
 ];
