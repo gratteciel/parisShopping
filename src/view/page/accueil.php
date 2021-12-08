@@ -5,7 +5,7 @@
 </div>
 
 <?php
-     include('bdd/connectBDD.php');
+    
      $productList = requeteSqlArray("SELECT * from article a, articleimmediat ai where a.idArticle = ai.idArticle",$pdo);
 ?>
 

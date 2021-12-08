@@ -1,20 +1,11 @@
 <?php
-    
+include_once __DIR__ . '/../bdd/donneeSession.php';
+include_once __DIR__ . '/../../config/config.php';
+include_once __DIR__ . '/../bdd/connectBDD.php';
+
     $displayErreur="none";
     $messageErreur="Il y a eu une erreur dans votre formulaire!";
 
-    include('../bdd/donneeSession.php'); 
-
-    $logged=false;
-    if(isset($_SESSION['LOGGED'])){
-        if($_SESSION['LOGGED'])
-            $logged=true;
-    }
-
-    //Connection à la BDD
-    include('../bdd/connectBDD.php');
-    
-   
     //Déclaration des variables
     $email = isset($_POST["mail"])? $_POST["mail"] : "";
     $pseudo = isset($_POST["pseudo"])? $_POST["pseudo"] : "";
@@ -97,9 +88,9 @@
                 <a href="../index.php">
                     <img src="../../images/logo.png" style="width:150px;" alt="Logo">
                 </a>
-                <div style="margin-top:2%;max-width:450px;">
-                <?php if($logged) : ?>
 
+                <div style="margin-top:2%;max-width:450px;">
+                <?php if(LOGGED) : ?>
 
                    <p>Vous etes connecté avec le pseudo : <?php echo $_SESSION['pseudo'] ?></p> 
                    <form action="../script_php/Utilisateur/deconnexion.php" method="post">

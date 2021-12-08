@@ -1,10 +1,10 @@
 <?php
     
-     $logged=false;
-     if(isset($_SESSION['LOGGED'])){
-         if($_SESSION['LOGGED']){ //Si connecté
+ 
+     if(LOGGED){
+        //Si connecté
             //Connexion à la base de donnée
-            include('bdd/connectBDD.php');
+            //include('bdd/connectBDD.php');
             $logged=true;
 
             //Chargement des articles dans le panier
@@ -18,11 +18,11 @@
             $nombreArticles = 0;
             $nombreArticles = sizeof($articleImmediat); //+  sizeof($articleEnchere) +  sizeof($articleNegociation);  
             
-         }       
+               
      }
 ?>
 
-<?php if($logged) : ?>
+<?php if(LOGGED) : ?>
 <div class="container px-4 py-5" id="panier">
 
     <!-- En tete du body */

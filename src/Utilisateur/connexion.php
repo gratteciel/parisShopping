@@ -1,17 +1,11 @@
 <?php
+include_once __DIR__ . '/../bdd/donneeSession.php';
+// make sure we always include config here, if it wasn't already include
+include_once __DIR__ . '/../../config/config.php';
+include_once __DIR__ . '/../bdd/connectBDD.php';
+
     $user =isset($_REQUEST["pseudo"])? $_REQUEST['pseudo'] : NULL;
     $displayNoCompte="none";
-    $logged=false;
-
-    include('../bdd/donneeSession.php'); 
-
-    if(isset($_SESSION['LOGGED'])){
-        if($_SESSION['LOGGED'])
-            $logged=true;
-    }
-    
-    //Connection à la BDD
-    include('../bdd/connectBDD.php');
 
 
     //Déclaration des variables
@@ -67,7 +61,7 @@
                     <img src="../../images/logo.png" style="width:150px;" alt="Logo">
                 </a>
                 <div style="margin-top:2%;max-width:400px;">
-                <?php if($logged) : ?>
+                <?php if(LOGGED) : ?>
 
 
                    <p>Vous etes connecté avec le pseudo : <?php echo $_SESSION['pseudo'] ?></p> 
@@ -113,7 +107,7 @@
                 <?php endif; ?>
                 </div>
             </div>
-            <?php if(!$logged) : ?>
+            <?php if(!LOGGED) : ?>
             <p class="text-center">Vous n'avez pas encore de compte? <br> <a href="inscription.php">Cliquez-ici</a></p>
             <?php endif; ?>
         

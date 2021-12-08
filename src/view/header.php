@@ -1,15 +1,15 @@
-<?php 
-  $logged=false;
-  if(isset($_SESSION['LOGGED'])){
-    if($_SESSION['LOGGED']){
-      $logged=true;
-    }
-    else
-      $logged=false;
-    
-  }
-  else
-    $logged=false;
+<?php
+//$logged = false;
+//if (isset($_SESSION['LOGGED'])) {
+//    if ($_SESSION['LOGGED']) {
+//        $logged = true;
+//    } else {
+//        $logged = false;
+//    }
+//
+//} else {
+//    $logged = false;
+//}
 ?>
 <main>
   <header class="p-3 text-white" style="background: rgb(210,210,210)">
@@ -22,14 +22,13 @@
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           <li><a href="?page=accueil" class="nav-link px-2 text-secondary">Accueil</a></li>
           <li><a href="?page=toutParcourir" class="nav-link px-2 text-dark">Tout Parcourir </a></li>
-          <?php if($logged) : ?>
+          <?php if(LOGGED) : ?>
           <li><a href="?page=notification" class="nav-link px-2 text-dark">Notifications</a></li>
           <li><a href="?page=panier/panier" class="nav-link px-2 text-dark">Panier</a></li>
           <?php endif ?>
         </ul>
-
         <div class="text-end">
-        <?php if($logged) : ?>
+        <?php if(LOGGED) : ?>
           <button onclick="location.href='?page=votre_compte'" type="button" class="btn btn-warning">Votre compte</button>
           <button onclick="location.href='script_php/Utilisateur/deconnexion.php'" type="button" class="btn btn-outline-light me-2">Déconnexion</button>
 

@@ -1,14 +1,9 @@
 <?php
     
-    $logged=false;
 
-    if(isset($_SESSION['LOGGED'])){
-        if($_SESSION['LOGGED'])
-            $logged=true;
-    }
 
      if(isset($_GET['id'])){
-        include('bdd/connectBDD.php');
+      
         //Que avec article immediat
         $article = requeteSqlArray("SELECT * from article a, articleimmediat ai where a.idArticle = ai.idArticle and a.idArticle = '{$_GET['id']}'",$pdo);    
      }
@@ -32,7 +27,7 @@
             Aucune description
         <?php endif; ?>
     </div>
-    <?php if($logged) : ?>
+    <?php if(LOGGED) : ?>
         <button onclick="location.href='script_php/panier/addArticle.php?idArticle=<?php echo $article[0]['idArticle'] ?>&idUtilisateur=<?php echo $_SESSION['idUtilisateur'] ?>&nom=<?php echo $article[0]['nom'] ?>'" type="button" class="btn btn-success">Ajouter au panier</button>
     <?php else : ?>    
         <button onclick="location.href='Utilisateur/connexion.php'" type="button" class="btn btn-success">Connectez vous pour ajouter au panier</button>
