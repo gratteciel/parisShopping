@@ -1,5 +1,8 @@
 
 <?php
+    $total = 0;
+?>
+<?php
 
 foreach ($productList as $productInfo): ?>
 
@@ -11,8 +14,13 @@ foreach ($productList as $productInfo): ?>
                 <div>Ajouté le <?php echo $productInfo['dateAJout']; ?> </div>
                 <button onclick="location.href='script_php/panier/supprArticle.php?idUtil=<?php echo $productInfo['utilisateurId']; ?>&idArticle=<?php echo $productInfo['idArticle']; ?>&idPanier=<?php echo $productInfo['idArticleInPanier']; ?>&nom=<?php echo $productInfo['nom']; ?>'" type="button" class="btn btn-danger">Supprimer</button>
             </div>
-            
     </div>
-   
-    
+
+        <?php $total += $productInfo['prixActuel']; ?>
 <?php endforeach; ?>
+        <div class="Total" role="alert">
+
+            <h4>Total : <?php echo $total?> €</h4>
+
+        </div>
+

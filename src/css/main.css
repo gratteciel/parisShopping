@@ -80,3 +80,16 @@ html, body{
     
   
 }
+.article{
+
+    border: beige;
+    border-width: 10px;
+    border-style: solid;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: beige;
+    color: #1a1e21;
+    font-weight: bold;
+}
+.Total{
+    text-align: right;
+}
