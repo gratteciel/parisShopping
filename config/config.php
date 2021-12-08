@@ -20,8 +20,13 @@ $configPageList = [
         'title'       => 'Site',
         'description' => '...',
     ],
+    'notifications' => [
+        'title'       => 'Notifications',
+        'description' => '...',
+    ],
     'notfound' => [
         'title'       => '....Main Title...',
         'description' => '...',
     ]
 ];
+

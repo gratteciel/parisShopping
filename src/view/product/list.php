@@ -1,5 +1,6 @@
+<div class="col">
 <?php foreach ($productList as $productInfo): ?>
-    <div class="col">
+
         <div class="produit">
             <h4 class="Nom_du_produit"><?php echo $productInfo->name; ?></h4>
             <a href="product.php?id=<?php echo $productInfo->id; ?>" class="bouton_Acheter">
@@ -9,5 +10,7 @@
                 <?php echo $productInfo->price; ?>EUR
             </div>
         </div>
-    </div>
+
 <?php endforeach; ?>
+
+</div>
