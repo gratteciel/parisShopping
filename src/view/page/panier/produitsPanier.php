@@ -1,5 +1,8 @@
-<?php foreach ($productList as $productInfo): ?>
-    
+
+<?php
+
+foreach ($productList as $productInfo): ?>
+
     <div class="alert alert-warning" role="alert">
 
             <h4><?php echo $productInfo['nom']; ?></h4>

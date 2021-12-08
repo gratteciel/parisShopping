@@ -1,6 +1,5 @@
 <?php
-// Création du DSN
-$dsn = 'mysql:host=localhost;dbname=parisShopping;port=3306;charset=utf8';
+include_once __DIR__ . '/../../config/config.php';
 $dsn = sprintf(
     'mysql:host=%s;dbname=%s;port=%d;charset=utf8',
     MY_PDO_HOSTNAME,
