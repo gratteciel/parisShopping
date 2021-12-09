@@ -101,11 +101,11 @@ include_once __DIR__ . '/../bdd/connectBDD.php';
                 
                     </form>
                 <?php else : ?>
-                    <form action="" method="post">
+                    <form action="" method="post" onsubmit = "return validateForm('inscription',['mdp','pseudo','prenom','nom','mail'],'errordiv')">
                         <div class="row">
                             <div class="form-connexion col-7">
                                 <label for="mail" class="form-label">Mail*</label>
-                                <input type="text" class="form-control" id="mail" name="mail" placeholder="test@exemple.com" required>
+                                <input type="text" class="form-control" id="mail" name="mail" placeholder="test@exemple.com" >
                                     <div class="text-danger" style="display:none;">
                                         Veuillez renseigner votre mail
                                     </div>
@@ -113,7 +113,7 @@ include_once __DIR__ . '/../bdd/connectBDD.php';
                            
                             <div class="form-connexion col">
                                 <label for="mail" class="form-label">Pseudo*</label>
-                                <input type="text" class="form-control" id="pseudo" name="pseudo" placeholder="Pas d'espace!" required>
+                                <input type="text" class="form-control" id="pseudo" name="pseudo" placeholder="Pas d'espace!" >
                                     <div class="text-danger" style="display:none;">
                                         Veuillez renseigner votre pseudo
                                     </div>
@@ -123,12 +123,12 @@ include_once __DIR__ . '/../bdd/connectBDD.php';
                         <div class="row">
                             <div class="form-connexion col">
                                 <label for="prenom" class="form-label">Prenom*</label>
-                                <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Michael" required>
+                                <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Michael" >
                             </div>
                            
                             <div class="form-connexion col">
                                 <label for="nom" class="form-label">Nom*</label>
-                                <input type="text" class="form-control" id="nom" name="nom" placeholder="Jackson" required>
+                                <input type="text" class="form-control" id="nom" name="nom" placeholder="Jackson" >
                             </div>
                         </div>
                         
@@ -140,7 +140,7 @@ include_once __DIR__ . '/../bdd/connectBDD.php';
 
                         <div class="form-connexion col">
                             <label for="mdp" class="form-label">Mot de passe* (minimum 8 caractères)</label>
-                            <input type="password" class="form-control" id="mdp" name="mdp" required>
+                            <input type="password" class="form-control" id="mdp" name="mdp" >
                             <div class="text-danger" style="display:none;" >
                                 Veuillez renseigner votre mot de passe
                             </div>
@@ -148,9 +148,12 @@ include_once __DIR__ . '/../bdd/connectBDD.php';
                         
                             
                             <div class="center">
+                            <div id="errordiv" style="color:red;margin-left: 6px;"></div>
                                 <button class="btn btn-primary form-connexion" type="submit" name="submit" style="width:30%;margin-top:15px;">Inscription</button>
+                                
                                 <div class="text-danger" style="display:<?php echo $displayErreur ?>;">
                                 <?php echo $messageErreur ?>
+                                
                             </div>
                             </div>
 
@@ -164,9 +167,9 @@ include_once __DIR__ . '/../bdd/connectBDD.php';
             </div>
 
         
-        <script src="../../../assets/dist/js/bootstrap.bundle.min.js"></script>
-
     
+
+        <script src="../script_js/validationForm.js"></script>
     </body>
     
 </html>

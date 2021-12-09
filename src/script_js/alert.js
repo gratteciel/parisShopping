@@ -13,6 +13,7 @@ var type=null;
 
 if(get('alerts'))
 {
+    
     typeAlert = get('tA');
     valeurAlert = get('valA');
     switch(typeAlert){
@@ -32,6 +33,15 @@ if(get('alerts'))
             message= "Vous avez bien ajouté <b>" + valeurAlert + "</b> à votre <a class='aPanier' href='index.php?page=panier/panier'>panier</a>";
             type="success";
             break;
+        case 'addAdresse':
+            message= "Vous avez bien ajouté <b>une adresse</b>!";
+            type="success";
+            break;
+        case 'addPaiement':
+            message= "Vous avez bien ajouté <b>un moyen de paiement</b>!";
+            type="success";
+            break;
+
     }
     
 }

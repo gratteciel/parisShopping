@@ -94,3 +94,20 @@ html, body{
 .Total{
     text-align: right;
 }
+
+.titreArticle{
+    outline: none;
+    text-decoration: none;
+    padding: 2px 1px 0;
+}
+
+.flexEspaceEntre{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.form-mod{
+    margin: 10px 5px 10px 5px;
+
+}

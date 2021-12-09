@@ -1,14 +1,11 @@
 
 <?php
-    $total = 0;
-?>
-<?php
 
 foreach ($productList as $productInfo): ?>
 
     <div class="alert alert-warning" role="alert">
 
-            <h4><?php echo $productInfo['nom']; ?></h4>
+            <h4><a class="titreArticle" href="index.php?page=article&id=<?php echo $productInfo['idArticle']; ?>"><?php echo $productInfo['nom']; ?></a></h4>
             <div style="display:flex;justify-content:space-between;">
                 <span ><?php echo $productInfo['prixActuel']; ?> €</span>
                 <div>Ajouté le <?php echo $productInfo['dateAJout']; ?> </div>
@@ -16,11 +13,7 @@ foreach ($productList as $productInfo): ?>
             </div>
     </div>
 
-        <?php $total += $productInfo['prixActuel']; ?>
+
 <?php endforeach; ?>
-        <div class="Total" role="alert">
 
-            <h4>Total : <?php echo $total?> €</h4>
-
-        </div>
 
