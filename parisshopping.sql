@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 07 déc. 2021 à 21:39
+-- Généré le : jeu. 09 déc. 2021 à 10:41
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
@@ -65,6 +65,7 @@ CREATE TABLE IF NOT EXISTS `article` (
   `articleimmediat` int(11) DEFAULT NULL,
   `vendeurId` int(11) NOT NULL,
   `nom` varchar(100) COLLATE latin1_general_ci NOT NULL,
+  `categorie` varchar(255) COLLATE latin1_general_ci NOT NULL,
   PRIMARY KEY (`idArticle`),
   KEY `RefArticleImmediat` (`articleimmediat`),
   KEY `RefVendeurId` (`vendeurId`)
@@ -74,9 +75,9 @@ CREATE TABLE IF NOT EXISTS `article` (
 -- Déchargement des données de la table `article`
 --
 
-INSERT INTO `article` (`idArticle`, `description`, `quantite`, `nombreVendu`, `typeArticle`, `dernierAchat`, `articleimmediat`, `vendeurId`, `nom`) VALUES
-(1, 'C\'est la giga description', 11, 0, '0', NULL, NULL, 6, 'nvidia GTX 9999'),
-(2, NULL, 100, 0, '0', NULL, NULL, 1, 'clavier pas fou');
+INSERT INTO `article` (`idArticle`, `description`, `quantite`, `nombreVendu`, `typeArticle`, `dernierAchat`, `articleimmediat`, `vendeurId`, `nom`, `categorie`) VALUES
+(1, 'C\'est la giga description', 11, 0, '0', NULL, NULL, 6, 'nvidia GTX 9999', ''),
+(2, NULL, 100, 0, '0', NULL, NULL, 1, 'clavier pas fou', '');
 
 -- --------------------------------------------------------
 
@@ -116,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `articleinpanier` (
   PRIMARY KEY (`idArticleInPanier`),
   KEY `RefArticleId` (`articleId`),
   KEY `RefUtilisateurId` (`utilisateurId`)
-) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 -- --------------------------------------------------------
 
@@ -149,6 +150,23 @@ CREATE TABLE IF NOT EXISTS `commandelog` (
   `utilisateurId` int(5) UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`idCommandeLog`),
   KEY `RefUtilisateurId` (`utilisateurId`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `notification`
+--
+
+DROP TABLE IF EXISTS `notification`;
+CREATE TABLE IF NOT EXISTS `notification` (
+  `idNotification` int(11) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(100) COLLATE latin1_general_ci NOT NULL,
+  `description` text COLLATE latin1_general_ci,
+  `date` datetime NOT NULL,
+  `idUtilisateur` int(11) NOT NULL,
+  PRIMARY KEY (`idNotification`),
+  KEY `refIdUtilisateur` (`idUtilisateur`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 -- --------------------------------------------------------
@@ -189,7 +207,7 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `vendeurId` int(11) DEFAULT NULL,
   PRIMARY KEY (`idUtilisateur`),
   KEY `refVendeurId` (`vendeurId`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 --
 -- Déchargement des données de la table `utilisateur`
@@ -201,7 +219,8 @@ INSERT INTO `utilisateur` (`idUtilisateur`, `mail`, `mdp`, `estAdmin`, `nom`, `p
 (6, 'mathis@ece.fr', '*27604AF8B8A11344ED782C8335452D90FA1BC2E9', 0, 'FOURNOL', 'Mathis', 'mathis', '', NULL),
 (7, 'emilian@ece.fr', '*27604AF8B8A11344ED782C8335452D90FA1BC2E9', 0, 'MITU', 'Emilian', 'emilianLEBG', '', NULL),
 (8, 'test2@gmail.com', '*27604AF8B8A11344ED782C8335452D90FA1BC2E9', 0, '2', 'Test', 'test2', '', NULL),
-(9, 'test3@gmail.com', '*27604AF8B8A11344ED782C8335452D90FA1BC2E9', 0, 'te', 'te', 'test3', '', NULL);
+(9, 'test3@gmail.com', '*27604AF8B8A11344ED782C8335452D90FA1BC2E9', 0, 'te', 'te', 'test3', '', NULL),
+(10, 'test42@gmail.com', '*C87AFFAB5D58116D7A14F833F462B169E77B5CDA', 0, 'oui', 'Gilbert', 'Gil', '', NULL);
 
 -- --------------------------------------------------------
 
