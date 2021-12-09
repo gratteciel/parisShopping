@@ -45,6 +45,7 @@ if (!array_key_exists($page, $configPageList)) {
 
         <?php include("view/footer.php"); ?>
         <!-- Permet les interactions avec les alerts -->
+
         <script src="script_js/alert.js"></script>
 
     </body>
