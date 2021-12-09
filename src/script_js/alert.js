@@ -32,8 +32,15 @@ if(get('alerts'))
             message= "Vous avez bien ajouté <b>" + valeurAlert + "</b> à votre <a class='aPanier' href='index.php?page=panier/panier'>panier</a>";
             type="success";
             break;
-    }
-    
+        case 'addAlerte':
+            message = "Vous avez ajouté à vos alerte " + valeurAlert  ;
+            type="success";
+            break;
+        case 'suppAlerte':
+            message = "Vous avez retiré de vos alerte "+ valeurAlert ;
+            type="success";
+            break;
+}
 }
 
 
