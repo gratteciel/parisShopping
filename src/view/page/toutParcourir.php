@@ -12,10 +12,6 @@
 </div>
 
 
-
-
-
-
     <div class="Presentation_site p-3 pb-md-4 mx-auto text-center">
 
         <?php include count($productList) ? 'view/product/list.php' : '../product/noProducts.php'; ?>

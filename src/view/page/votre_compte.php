@@ -27,12 +27,12 @@ $cardList    = Utilisateur::cardList($pdo, $idUtilisateur);
                   d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
             <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
         </svg><?php
-        echo "  ". $adress['numeroVoie'];
-        echo  "  " . $adress['rue'];
-        echo "  ". $adress['ville'];
-        echo "  ". $adress['codePostal'];
-        echo "  ".  $adress['nom'];
-        echo "  ".  $adress['prenom'];
+        echo " Le numéro de voie est: ". $adress['numeroVoie']."</br>\n";
+        echo  " Rue: " . $adress['rue']."</br>\n";
+        echo " Ville: ". $adress['ville']."</br>\n";
+        echo " Code Postal ". $adress['codePostal']."</br>\n";
+        echo "Au nom de  ".  $adress['nom']."</br>\n";
+        echo " Et au prénom ".  $adress['prenom']."</br>\n";
         ?>
     </ul>
 <?php endforeach; ?>
@@ -46,11 +46,11 @@ $cardList    = Utilisateur::cardList($pdo, $idUtilisateur);
                 <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/>
                 <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z"/>
             </svg><?php
-            echo "  ". $card['typeCarte'];
-            echo  "  " . $card['numeroCarte'];
-            echo "  ". $card['nomCarte'];
-            echo "  ". $card['dateExpiration'];
-            echo "  ".  $card['codeSecurite'];
+            //On affiche que les derniers numéro de la carte
+            $card['numeroCarte'] =substr((string)$card['numeroCarte'],12);
+            echo " Votre carte est une ". $card['typeCarte']."</br>\n";
+            echo  "Votre carte se termine ************" . $card['numeroCarte']."</br>\n";
+            echo "Le nom sur la carte est:  ". $card['nomCarte']."</br>\n";
+            echo "La carte expire le : ". $card['dateExpiration']."</br>\n";
             ?>
             <?php endforeach; ?>
-

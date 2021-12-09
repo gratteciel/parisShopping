@@ -5,16 +5,15 @@
 </div>
 
 <?php
-    
-     $productList = requeteSqlArray("SELECT * from article a, articleimmediat ai where a.idArticle = ai.idArticle",$pdo);
+     $productList = requeteSqlArray("SELECT * from article a, articleimmediat ai where a.idArticle = ai.idArticle ORDER BY a.nombreVendu DESC  LIMIT 6",$pdo);
 ?>
 
 <div class="Presentation_site p-3 pb-md-4 mx-auto text-center">
 
-    <h2 id="ventesFlash">Ventes Flash</h2>
+    <h5 id="ventesFlash">Ventes Flash</h5>
 
 
-    <?php include count($productList) ? 'view/product/list.php' : '../product/noProducts.php'; ?>
+    <?php include count($productList) ?  PROJECT_ROOT_DIR. '/src/view/product/caroussel.php' : PROJECT_ROOT_DIR . '/src/view/product/noProducts.php'; ?>
 
 </div>
 
