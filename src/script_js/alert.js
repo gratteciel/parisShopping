@@ -33,6 +33,7 @@ if(get('alerts'))
             message= "Vous avez bien ajouté <b>" + valeurAlert + "</b> à votre <a class='aPanier' href='index.php?page=panier/panier'>panier</a>";
             type="success";
             break;
+
         case 'addAdresse':
             message= "Vous avez bien ajouté <b>une adresse</b>!";
             type="success";
@@ -53,10 +54,22 @@ if(get('alerts'))
             message= "Votre <a class='aPanier' href='index.php?page=commande&id="+valeurAlert+">commande</a> a bien été pris en compte!";
             type="success";
             break;
+        case 'addAlerte':
+            message = "Vous avez ajouté "+ valeurAlert +" à vos alertes" ;
+            type="success";
+            break;
+        case 'suppAlerte':
+            message = "Vous avez retiré " + valeurAlert +" de vos alertes";
+            type="success";
+            break;
 
     }
     
+
+        
 }
+
+
 
 
 var alertPlaceholder = document.getElementById('afficheAlert')
