@@ -30,6 +30,7 @@ foreach($commandes as $co){
 <p class="text-light">pseudo: <?php echo Utilisateur::afficherValeurSession('pseudo'); ?></p>
 <p class="text-light">mail: <?php echo Utilisateur::afficherValeurSession('mail'); ?></p>
 
+
 <hr>
 <div class="flexEspaceEntre">
     <h2 class="text-light">Nombres d'adresses enregistrées : <?php echo count($addressList); ?></h2>
