@@ -60,7 +60,6 @@ class Utilisateur
             return $_SESSION[$fieldName];
         }
 
-        // we can return ''; (empty string);
         return null;
     }
 }

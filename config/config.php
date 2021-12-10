@@ -54,6 +54,10 @@ $configPageList = [
         'title' => 'Mon Panier',
         'description' => '...',
     ],
+    'vendeur' => [
+        'title' => 'Pannel Vendeur',
+        'description' => '...',
+    ],
     'notfound'           => [
         'title'       => '....Main Title...',
         'description' => '...',

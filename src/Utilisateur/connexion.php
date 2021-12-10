@@ -15,7 +15,9 @@ include_once __DIR__ . '/../bdd/connectBDD.php';
 
     if(isset($_POST["submit"])){ //Si il y a eu une requete de connection avec le form
         $resultat = requeteSqlArray("SELECT * from utilisateur where (mail like '{$emailOuPseudo}' OR pseudo like '{$emailOuPseudo}') AND mdp =password('{$mdp}')",$pdo);
-       
+        
+      
+
         if(sizeof($resultat)==1){
             $_SESSION['LOGGED'] = true;
             $_SESSION['idUtilisateur'] = $resultat[0]['idUtilisateur'];
@@ -25,6 +27,19 @@ include_once __DIR__ . '/../bdd/connectBDD.php';
             $_SESSION['prenom'] = $resultat[0]['prenom'];
             $_SESSION['nom'] = $resultat[0]['nom'];
             $_SESSION['numTel'] = $resultat[0]['numTel'];
+
+            //Check si c'est un vendeur
+            $checkIfVendeur= requeteSqlArray("SELECT * from vendeur where utilisateurId = {$_SESSION['idUtilisateur']}",$pdo);
+
+            if(sizeof($checkIfVendeur)==1){//Si c'est un vendeur
+                $_SESSION['estVendeur'] = true;
+                $_SESSION['idVendeur'] = $checkIfVendeur[0]['idVendeur'];
+            }
+            else{
+                $_SESSION['estVendeur'] = false;
+                $_SESSION['idVendeur'] = NULL;
+            }
+            
 
             header('Location: ../index.php?alerts=1&tA=connect&valA=' . $resultat[0]['pseudo']);
             exit();

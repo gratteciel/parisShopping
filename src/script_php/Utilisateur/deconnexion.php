@@ -14,7 +14,9 @@ unset(
     $_SESSION['estAdmin'],
     $_SESSION['prenom'],
     $_SESSION['nom'],
-    $_SESSION['numTel']
+    $_SESSION['numTel'],
+    $_SESSION['estVendeur'],
+    $_SESSION['idVendeur']
 );
 //        $_SESSION['LOGGED'] = false;
 //        $_SESSION['idUtilisateur'] = NULL;

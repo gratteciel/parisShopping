@@ -14,6 +14,7 @@ else {
 if (!array_key_exists($page, $configPageList)) {
     $page = "notfound";
 }
+
 ?>
 <!doctype html>
 <html>
