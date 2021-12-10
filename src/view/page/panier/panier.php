@@ -8,7 +8,21 @@
         if(isset($_REQUEST['err']) && isset($_REQUEST['val'])){
             if($_REQUEST['err']=='codeSecuPasBon')
                 $msgErreur="Le code de sécurité de la carte finissant par *-" . $_REQUEST['val'] ." n'est pas bon!";
+            else if($_REQUEST['err']=='aucunArticle'){
+                $msgErreur="Il n'y a aucun article dans votre panier!";
+            }
+            else if($_REQUEST['err']=='dateExpiration'){
+                $msgErreur="Votre carte est expirée! (". $_REQUEST['val'] .")";
+            }
+            else if($_REQUEST['err']=='prblQuantite'){
+                $msgErreur=$_REQUEST['val'] . " n'est plus en stock!";
+            }
+            else if($_REQUEST['err']=='prblQuantitePanier'){
+                $msgErreur='Il ne reste plus que ' .$_REQUEST['val2'] . " " .$_REQUEST['val'] ." en stock";
+            }
+            
         }
+       
         
         $total=0;
         
@@ -109,7 +123,7 @@
                             >
                 </div>
                 <div>
-                    <button style="margin-top: 40%;" type="submit" name="submit" class="btn btn-primary">Payer</button>
+                    <button style="margin-top: 15%;" type="submit" name="submit" class="btn btn-primary">Passer la commande</button>
                 </div>
                 
             </div>

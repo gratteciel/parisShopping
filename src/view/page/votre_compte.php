@@ -13,6 +13,12 @@
 
 $addressList = Utilisateur::addressList($pdo, $idUtilisateur);
 $cardList    = Utilisateur::cardList($pdo, $idUtilisateur);
+$commandes = Utilisateur::commandes($pdo, $idUtilisateur);
+$articlesLog;
+foreach($commandes as $co){
+    $articlesLog[$co['idCommandeLog']] = requeteSqlArray("SELECT * from articleLog WHERE commandeLogId = '{$co['idCommandeLog']}'",$pdo);
+}
+
 ?>
 
 <div class="Presentation_site p-3 pb-md-4 mx-auto text-center">
@@ -146,5 +152,56 @@ $cardList    = Utilisateur::cardList($pdo, $idUtilisateur);
     </table>
 </div>
 
+<hr>
+
+
+<div class="flexEspaceEntre">
+    <h2 class="text-light">Historiques des commandes: <?php echo count($commandes); ?></h2>
+    
+    <div>
+    <?php if(sizeof($commandes)!=0) : ?>
+        <button id="afficherPaie" type="button" style="color:white" class="btn btn-outline-secondary " onclick="afficherOuPas('historiqueCommande')">Les afficher</button></h1>
+        <?php endif; ?>
+
+    </div>
+</div>
+    
+
+
+
+<div id="historiqueCommande" style="display:<?php echo $displayPaiement?>;margin:3%;">
+
+    <table class="table table-bordered"  style="color:white;">
+        <thead>
+            <tr>
+                <th scope="col">Référence de la commande</th>
+                <th scope="col">Date de la commande</th>
+                <th scope="col">Nombre d'articles</th>
+                <th scope="col" style="width:1%;">Afficher</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <?php foreach ($commandes as $co): ?>
+                
+                    <tr>
+                        <?php
+                        echo "<td>". $co['idCommandeLog'] ."</td>";
+                        echo "<td>". $co['dateCommande'] ."</td>";
+                        echo  "<td>" . sizeof($articlesLog[$co['idCommandeLog']])."</td>";
+                        echo "<td style='width:1%;'>";
+                        ?>
+                
+                        <button onclick="location.href='index.php?page=commande&id=<?php echo $co['idCommandeLog']; ?>'" type="button" class="btn btn-warning">Afficher</button>
+                    
+                        <?php echo "</td>"?> 
+                    </tr>
+                </ul>
+            <?php endforeach; ?>
+
+
+        </tbody>
+    </table>
+</div>
 
 <script src="script_js/validationForm.js"></script>

@@ -49,6 +49,10 @@ if(get('alerts'))
             message= "Vous avez bien supprimé <b>un moyen de paiement</b>!";
             type="danger";
             break;
+        case 'payer':
+            message= "Votre <a class='aPanier' href='index.php?page=commande&id="+valeurAlert+">commande</a> a bien été pris en compte!";
+            type="success";
+            break;
 
     }
     

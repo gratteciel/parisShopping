@@ -19,7 +19,15 @@
         
 
     if($erreur==0)
+    {
         requeteSqlArray("INSERT INTO adresse (numeroVoie, rue, ville,codePostal,nom,pays,utilisateurId) VALUES ('{$_POST["numeroVoie"]}', '{$_POST["rue"]}', '{$_POST["ville"]}','{$_POST["codePostal"]}','{$_POST["nomAdresse"]}','{$_POST["pays"]}','{$_SESSION["idUtilisateur"]}');",$pdo);
+        
+        date_default_timezone_set('Europe/Paris');
+        $date = date('Y-m-d H:i:s', time());
+
+        //Création d'une notification
+        requeteSqlArray("INSERT INTO notification (nom,descriptionNotif,dateNotif,idUtilisateur,vu,lien) values ('Ajout d\'adresse','Votre ajout d\'adresse ({$_POST["numeroVoie"]} {$_POST["rue"]} à {$_POST["ville"]}) a bien été pris en compte','{$date}','{$_SESSION['idUtilisateur']}',0,'votre_compte');",$pdo);
+    }   
     
     header('Location: ../index.php?page=' .$_REQUEST['page']  . '&alerts=1&tA=addAdresse&valA=rien');
     exit();

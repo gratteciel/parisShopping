@@ -18,6 +18,10 @@ $configPageList = [
         'title'       => 'Article',
         'description' => '...',
     ],
+    'commande' => [
+        'title'       => 'Commande - Information',
+        'description' => '...',
+    ],
     'cahier_des_charges' => [
         'title'       => 'Cahier des charges',
         'description' => '...',

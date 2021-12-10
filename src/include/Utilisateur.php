@@ -37,6 +37,22 @@ class Utilisateur
 
         return $sth->fetchAll(PDO::FETCH_ASSOC);
     }
+    public static function commandes($pdo, $utilisateurId)
+    {
+        /** @var PDO $pdo */
+        if (empty($utilisateurId)) {
+            return [];
+        }
+
+        $sth = $pdo->prepare('SELECT * FROM commandeLog WHERE utilisateurId = :userId ORDER BY dateCommande DESC' );
+        // replace ":userId" param with (int) $utilisateurId
+        $sth->bindParam(':userId', $utilisateurId, PDO::PARAM_INT);
+        $sth->execute();
+
+        return $sth->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
 
     public static function afficherValeurSession($fieldName)
     {

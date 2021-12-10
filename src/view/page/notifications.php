@@ -1,50 +1,68 @@
 <?php
-$notificationList = [
-(object) [
-'id'      => 1,
-'name'    => 'Inscription',
-'time'   => 12,
-'des' => 'Merci pour vous être inscrit',
-],
-(object) [
-'id'      => 2,
-'name'    => 'Verification de mail',
-'time'   => 11,
-'des' => 'Votre mail a bien été verifié',
-    ],
-(object) [
-'id'      => 3,
-'name'    => 'Vente accepté',
-'time'   => 8,
-'des' => 'Merci pour la moula',
-],
-(object) [
-'id'      => 4,
-'name'    => 'Annulation de commande',
-'time'   => 6,
-'des' => 'Votre commande a été annulé',
-],
-(object) [
-'id'      => 5,
-'name'    => 'Carte graphique',
-'time'   => 3,
-'des' => 'Jean-Louis a accepté le prix que vous avez négocié',
-],
-];
+    
+    $notificationListNew = requeteSqlArray("SELECT * from notification where idUtilisateur = '{$_SESSION['idUtilisateur']}' and  vu = 0 ORDER BY dateNotif DESC",$pdo);
+    $notificationListAnciennes = requeteSqlArray("SELECT * from notification where idUtilisateur = '{$_SESSION['idUtilisateur']}' and  vu != 0 ORDER BY dateNotif DESC",$pdo);
+
+//include count($notificationList) ? 'view/notification/list.php' : '../product/noProducts.php';
+?>  
+    <h1 style="margin:20px;margin-bottom:50px;;text-align:center">Notifications</h1>
+
+    <?php if (sizeof($notificationListNew)==0): ?>
+        <h3 style="margin-left:10px;">Aucune Nouvelle notification</h3>
+    <?php else: ?>
+        <h3 style="margin-left:10px;">Nouvelles notifications</h3>
+    <?php endif; ?>
+
+    <div class="notification">
+    
+    
+        <?php foreach ($notificationListNew as $notificationInfo): ?>
+            
+                <a href="index.php?page=<?php echo $notificationInfo['lien']; ?>" class="list-group-item list-group-item-warning"      style="margin-bottom:10px;">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1"><?php echo $notificationInfo['nom']; ?></h5>
+                        <small><?php echo $notificationInfo['dateNotif']; ?></small>
+                    </div>
+                    <p class="mb-1"><?php echo $notificationInfo['descriptionNotif']; ?></p>
+
+                </a>
+            
+        <?php endforeach; ?>
+
+    </div>
+    
+    <hr style="margin-bottom:40px;margin-top:40px;">
+
+    <div style="width:70%;margin:auto;" class="border">
+    
+        <?php if (sizeof($notificationListAnciennes)==0): ?>
+            <h3 style="margin-left:10px;">Aucune ancienne notification</h3>
+        <?php else: ?>
+            <div style="display:flex;flex-direction:row;margin-bottom:30px;margin:10px;">
+                <button id="afficherPaie" type="button" style="color:white" class="btn btn-outline-secondary " onclick="afficherOuPas('notifAncienne')">Afficher</button></h1>
+                <h3 style="margin-left:10px;">les anciennes notifications</h3>
+            </div> 
+        <?php endif; ?>
+              
+        
+        <div class="notification" id="notifAncienne" style="display:none;margin:10px;">
+            <?php foreach ($notificationListAnciennes as $notificationInfo): ?>
+                
+                    <a href="index.php?page=<?php echo $notificationInfo['lien']; ?>" class="list-group-item"  style="margin-bottom:10px;">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1"><?php echo $notificationInfo['nom']; ?></h5>
+                            <small><?php echo $notificationInfo['dateNotif']; ?></small>
+                        </div>
+                        <p class="mb-1"><?php echo $notificationInfo['descriptionNotif']; ?></p>
+
+                    </a>
+                
+            <?php endforeach; ?>
+        </div>
+    </div>
+<?php
+    
+   requeteSqlArray("UPDATE notification set vu = 1 where idUtilisateur = '{$_SESSION['idUtilisateur']}'",$pdo);
 
 //include count($notificationList) ? 'view/notification/list.php' : '../product/noProducts.php';
 ?>
-
-<div class="notification">
-<?php foreach ($notificationList as $notificationInfo): ?>
-        <a href="#" class="list-group-item list-group-item-action">
-            <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1"><?php echo $notificationInfo->name; ?></h5>
-                <small> il y a <?php echo $notificationInfo->time; ?> jour</small>
-            </div>
-            <p class="mb-1"><?php echo $notificationInfo->des; ?></p>
-            <small>And some small print.</small>
-            </a>
-
-<?php endforeach; ?>
-</div>
