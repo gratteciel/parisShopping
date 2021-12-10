@@ -1,3 +1,14 @@
+<?php 
+if(LOGGED){
+  $notificationListNew = requeteSqlArray("SELECT * from notification where idUtilisateur = '{$_SESSION['idUtilisateur']}' and  vu = 0 ORDER BY dateNotif DESC",$pdo);
+  $textColor="text-dark";
+  if(sizeof($notificationListNew)>0){
+    $textColor="text-danger";
+  }
+
+}
+  
+?>
 <main>
   <header class="p-3 text-white" style="background: rgb(210,210,210)">
     <div class="container">
@@ -10,7 +21,7 @@
           <li><a href="?page=accueil" class="nav-link px-2 text-secondary">Accueil</a></li>
           <li><a href="?page=toutParcourir" class="nav-link px-2 text-dark">Tout Parcourir </a></li>
           <?php if(LOGGED) : ?>
-          <li><a href="?page=notifications" class="nav-link px-2 text-dark">Notifications</a></li>
+          <li><a href="?page=notifications" class="nav-link px-2 <?php echo $textColor; ?>" <?php if(sizeof($notificationListNew)>0) : ?>id="clignote"<?php endif ?>>Notifications</a></li>
           <li><a href="?page=panier/panier" class="nav-link px-2 text-dark">Panier</a></li>
           <?php endif ?>
         </ul>
