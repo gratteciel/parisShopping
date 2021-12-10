@@ -51,7 +51,7 @@ if(get('alerts'))
             type="danger";
             break;
         case 'payer':
-            message= "Votre <a class='aPanier' href='index.php?page=commande&id="+valeurAlert+">commande</a> a bien été pris en compte!";
+            message= "Votre <a class='aPanier' href='index.php?page=commande&id="+valeurAlert+"'>commande</a> a bien été pris en compte!";
             type="success";
             break;
         case 'addAlerte':
