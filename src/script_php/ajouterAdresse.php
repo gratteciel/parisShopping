@@ -21,6 +21,6 @@
     if($erreur==0)
         requeteSqlArray("INSERT INTO adresse (numeroVoie, rue, ville,codePostal,nom,pays,utilisateurId) VALUES ('{$_POST["numeroVoie"]}', '{$_POST["rue"]}', '{$_POST["ville"]}','{$_POST["codePostal"]}','{$_POST["nomAdresse"]}','{$_POST["pays"]}','{$_SESSION["idUtilisateur"]}');",$pdo);
     
-    header('Location: ../index.php?page=votre_compte&alerts=1&tA=addAdresse&valA=rien');
+    header('Location: ../index.php?page=' .$_REQUEST['page']  . '&alerts=1&tA=addAdresse&valA=rien');
     exit();
  ?>

@@ -23,6 +23,19 @@ function affichageDuName(formName,name){
                 break;
         }
     }
+    else if(formName=="payer"){
+        switch(name){
+            case 'adressePayer':
+                sortie='l\'adresse';
+                break;
+            case 'paiementPayer':
+                sortie='le mode de paiement';
+                break;
+            case 'codeSecuPayer':
+                sortie='le code de sécurité';
+                break;
+        }
+    }
     else if(formName=='inscription'){
         switch(name){
             case 'mail':
@@ -79,14 +92,14 @@ function validateEmail (emailAdress)
   
      
       for(const elem of tableau){
-          console.log(document.getElementById(elem).name);
+          
         if(formName=='inscription' && elem=='mail'){ 
             if(!validateEmail(document.getElementById(elem).value)){ //Doit etre un entier
                 erreur++;
                 message = "Email invalide!";
                 }
         }
-        if(formName=='paiement' ){
+        if(formName=='paiement'){
             if(elem=='numero'){ 
                 
                 if(document.getElementById(elem).value.length!=16){
@@ -100,6 +113,20 @@ function validateEmail (emailAdress)
                 
             }
             else if(elem=='codeSecu'){ 
+                
+                if(document.getElementById(elem).value.length!=3){
+                    erreur++;
+                    message = "La taille du numéro de sécurité doit être de 3";
+                }
+                if(isNaN(document.getElementById(elem).value)){ //Doit etre un entier
+                    erreur++;
+                    message = "Le numéro de sécurité doit etre un nombre entier";
+                    }
+            }
+    
+        }
+        if(formName=='payer'){
+            if(elem=='codeSecuPayer'){ 
                 
                 if(document.getElementById(elem).value.length!=3){
                     erreur++;
@@ -127,7 +154,6 @@ function validateEmail (emailAdress)
                 message = "La taille de votre mot de passe est trop petit (8 minimum)";
                 }
         }
-
         if(document.getElementById(elem).value==""){
           erreur++;
 
@@ -145,7 +171,7 @@ function validateEmail (emailAdress)
       
 
       var error =  document.getElementById(idError);
-
+     
       if(erreur>0){
           error.innerHTML=message;
           error.style.visibility='visible';

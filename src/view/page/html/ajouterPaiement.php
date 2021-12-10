@@ -10,7 +10,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="script_php/ajouterPaiement.php" method="post" onsubmit = "return validateForm('paiement',['numero','date','nomCarte','codeSecu'],'errordiv2')">
+          <form action="script_php/ajouterPaiement.php?page=<?php echo $page?>" method="post" onsubmit = "return validateForm('paiement',['numero','date','nomCarte','codeSecu'],'errordiv2')">
               <div id='form-mod'>
                 <label for="typeCarte" style="margin-left:10px;margin-bottom: 0px;">Type de carte</label>
                 <select class="form-select form-mod" aria-label="Default select example" id="typeCarte" name="typeCarte">

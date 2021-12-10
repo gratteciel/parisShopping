@@ -34,6 +34,6 @@
     if($erreur==0)
         requeteSqlArray("INSERT INTO paiement (typeCarte, numeroCarte, nomCarte,dateExpiration,codeSecurite,utilisateurId) VALUES ('{$_POST["typeCarte"]}', '{$_POST["numero"]}', '{$_POST["nomCarte"]}','{$_POST["date"]}','{$_POST["codeSecu"]}','{$_SESSION["idUtilisateur"]}');",$pdo);
     
-    header('Location: ../index.php?page=votre_compte&alerts=1&tA=addPaiement&valA=rien');
+    header('Location: ../index.php?page=' .$_REQUEST['page']  . '&alerts=1&tA=addPaiement&valA=rien');
     exit();
  ?>

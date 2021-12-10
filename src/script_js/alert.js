@@ -41,6 +41,14 @@ if(get('alerts'))
             message= "Vous avez bien ajouté <b>un moyen de paiement</b>!";
             type="success";
             break;
+        case 'supprAdresse':
+            message= "Vous avez bien supprimé <b>une adresse</b>!";
+            type="danger";
+            break;
+        case 'supprPaiement':
+            message= "Vous avez bien supprimé <b>un moyen de paiement</b>!";
+            type="danger";
+            break;
 
     }
     

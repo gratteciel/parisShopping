@@ -10,7 +10,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="script_php/ajouterAdresse.php" method="post" onsubmit = "return validateForm('adresse',['nomAdresse','rue','ville','pays','codePostal'],'errordiv')">
+          <form action="script_php/ajouterAdresse.php?page=<?php echo $page?>" method="post" onsubmit = "return validateForm('adresse',['nomAdresse','rue','ville','pays','codePostal'],'errordiv')">
               <div id='form-mod'>
                   <div style="display:flex;flex-direction:row">
                       <input type="text" 
@@ -18,7 +18,7 @@
                               placeholder="Num"
                               style="width:20%"
                               name="numeroVoie">
-  
+
                       <input type="text" 
                               class="form-control form-mod" 
                           id='rue'

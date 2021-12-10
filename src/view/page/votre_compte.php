@@ -2,8 +2,8 @@
     include_once PROJECT_ROOT_DIR . '/src/include/loginStatus.php';
     include_once PROJECT_ROOT_DIR . '/src/include/Utilisateur.php';
 
-  
-       
+    $displayAdresse='none';
+    $displayPaiement='none';   
 
     if (empty($idUtilisateur)) {
     // redirect to user login
@@ -29,8 +29,11 @@ $cardList    = Utilisateur::cardList($pdo, $idUtilisateur);
     <h2 class="text-light">Nombres d'adresses enregistrées : <?php echo count($addressList); ?></h2>
     
     <div>
-    <button id="afficher" type="button" style="color:white" class="btn btn-outline-secondary " onclick="afficherOuPas('adresseAffichage')">Les afficher</button></h1>
+    <?php if(sizeof($addressList)!=0) : ?>
+        <button id="afficher" type="button" style="color:white" class="btn btn-outline-secondary " onclick="afficherOuPas('adresseAffichage')">Les afficher</button></h1>
+    <?php endif; ?>
     <!-- Button trigger modal -->
+    
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Ajouter
     </button>
@@ -38,9 +41,9 @@ $cardList    = Utilisateur::cardList($pdo, $idUtilisateur);
 </div>
 
 
-    <?php include('html/ajouterAdresse.html');?>
-    <?php include('html/ajouterPaiement.html');?>
-<div id="adresseAffichage" style="display:none;margin:3%;">
+    <?php $page='votre_compte'; include('html/ajouterAdresse.php');?>
+    <?php include('html/ajouterPaiement.php');?>
+<div id="adresseAffichage" style="display:<?php echo $displayAdresse?>;margin:3%;">
 
     <table class="table table-bordered"  style="color:white;">
     <thead>
@@ -50,6 +53,7 @@ $cardList    = Utilisateur::cardList($pdo, $idUtilisateur);
         <th scope="col">Ville</th>
         <th scope="col">Pays</th>
         <th scope="col">Nom</th>
+        <th scope="col" style="width:1%;">Supprimer</th>
         </tr>
     </thead>
     <tbody>
@@ -68,7 +72,12 @@ $cardList    = Utilisateur::cardList($pdo, $idUtilisateur);
                 echo "<td>". $adress['ville'].", " . $adress['codePostal']."</td>";
                 echo "<td>". $adress['pays']."</td>";
                 echo "<td>".  $adress['nom']."</td>";
+                echo "<td style='width:1%;'>";
                 ?>
+                
+                <button onclick="location.href='script_php/supprAdresse.php?idAdresse=<?php echo $adress['idAdresse']; ?>'" type="button" class="btn btn-danger">Supprimer</button>
+             
+                <?php echo "</td>"?>
             </tr>
         </ul>
     <?php endforeach; ?>
@@ -86,7 +95,9 @@ $cardList    = Utilisateur::cardList($pdo, $idUtilisateur);
     <h2 class="text-light">Nombres de moyens de paiement enregistrés : <?php echo count($cardList); ?></h2>
     
     <div>
+    <?php if(sizeof($cardList)!=0) : ?>
         <button id="afficherPaie" type="button" style="color:white" class="btn btn-outline-secondary " onclick="afficherOuPas('paiementAffichage')">Les afficher</button></h1>
+        <?php endif; ?>
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
         Ajouter
@@ -97,7 +108,7 @@ $cardList    = Utilisateur::cardList($pdo, $idUtilisateur);
 
 
 
-<div id="paiementAffichage" style="display:none;margin:3%;">
+<div id="paiementAffichage" style="display:<?php echo $displayPaiement?>;margin:3%;">
 
     <table class="table table-bordered"  style="color:white;">
         <thead>
@@ -106,6 +117,7 @@ $cardList    = Utilisateur::cardList($pdo, $idUtilisateur);
                 <th scope="col">Numéro</th>
                 <th scope="col">Nom</th>
                 <th scope="col">Date d'expiration</th>
+                <th scope="col" style="width:1%;">Supprimer</th>
             </tr>
         </thead>
         <tbody>
@@ -118,7 +130,13 @@ $cardList    = Utilisateur::cardList($pdo, $idUtilisateur);
                      
                         echo "<td>". $card['nomCarte']."</td>";
                         echo "<td>".  $card['dateExpiration']."</td>";
+                        
+                        echo "<td style='width:1%;'>";
                         ?>
+                
+                        <button onclick="location.href='script_php/supprPaiement.php?idPaiement=<?php echo $card['idPaiement']; ?>'" type="button" class="btn btn-danger">Supprimer</button>
+                    
+                        <?php echo "</td>"?>
                     </tr>
                 </ul>
             <?php endforeach; ?>

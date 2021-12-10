@@ -1,14 +1,25 @@
 <?php
-
+       include_once PROJECT_ROOT_DIR . '/src/include/loginStatus.php';
+       include_once PROJECT_ROOT_DIR . '/src/include/Utilisateur.php';
   
      if(LOGGED){    //Si connecté
-    
+        $msgErreur="";
+        
+        if(isset($_REQUEST['err']) && isset($_REQUEST['val'])){
+            if($_REQUEST['err']=='codeSecuPasBon')
+                $msgErreur="Le code de sécurité de la carte finissant par *-" . $_REQUEST['val'] ." n'est pas bon!";
+        }
+        
         $total=0;
-       
-
+        
+        $addressList = Utilisateur::addressList($pdo, $idUtilisateur);
+        $cardList    = Utilisateur::cardList($pdo, $idUtilisateur);
+        
         //Chargement des articles dans le panier
         $articleImmediat = requeteSqlArray("SELECT * from article a, articleimmediat ai, articleInPanier ap where a.idArticle = ai.idArticle and a.idArticle = ap.articleId and (ap.utilisateurId = '{$_SESSION['idUtilisateur']}')",$pdo);
         
+
+
         //Pour l'instant il n'y a que achat immédiat
         /*$articleEnchere= requeteSqlArray("SELECT * from article a, articleimmediat ai where a.idArticle = ai.idArticle and a.idArticle = (select articleId from articleInPanier where utilisateurId = '{$_SESSION['idUtilisateur']}')",$pdo);
 
@@ -26,7 +37,8 @@
 
 <?php if(LOGGED) : ?>
 <div class="container px-4 py-5" id="panier">
-
+    <?php $page='panier/panier'; include('view/page/html/ajouterAdresse.php');?>
+    <?php include('view/page/html/ajouterPaiement.php');?>
     <!-- En tete du body */
     /* Logo Panier */
     -->
@@ -45,11 +57,65 @@
 
     <div id="payer" class="border" style="width:100%;padding:10px;margin-top:50px;">
         <h3>Veuillez renseigner vos informations avant de passer au paiement</h3>
+        
 
-        <div class="flexEspaceEntre">
-            <div>Adresse de facturation</div>
-            <div>Moyen de Paiement</div>
-        </div>
+        <form action="script_php/payer.php" method="post" onsubmit = "return validateForm('payer',['adressePayer','paiementPayer','codeSecuPayer'],'errordiv3')">
+        <div id="errordiv3" style="color:red;margin-left: 6px;"><?php echo $msgErreur?></div>
+            <div style="display:flex;flex-direction:row;justify-content:space-around;margin-top:20px;">
+                <div>
+                    <label style="margin-bottom: 5px;" for="adressePayer">Adresse de facturation</label>
+                    <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal" class='aAjouter'>
+                    (Ajouter)
+                    </a>
+                    
+                    <select name="adressePayer" id="adressePayer" class="form-select col" style="width:250px" >
+                    <?php if(sizeof($addressList)!=0) : ?>
+                        <?php foreach ($addressList as $adress): ?>
+                            <option value="<?php echo $adress['idAdresse']?>"><?php echo $adress['numeroVoie'] ." ". $adress['rue'] . ", " .$adress['ville']?></option>
+                        <?php endforeach; ?>
+                    <?php else : ?>
+                        <option value="">Aucune adresse</option>
+                        <?php endif; ?>
+                    </select>
+                    
+                 
+                    
+                </div>
+                <div>
+                    <label style="margin-bottom: 5px;" for="paiementPayer">Moyen de paiement</label>
+                    <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal2" class='aAjouter'>
+                    (Ajouter)
+                    </a>
+                    <select name="paiementPayer" id="paiementPayer" class="form-select col" style="width:250px">
+                    
+
+                    <?php if(sizeof($cardList)!=0) : ?>
+                    <?php foreach ($cardList as $card): ?>
+                        <option value="<?php echo $card['idPaiement']?>"><?php echo $card['typeCarte'] ." - ". "****-****-****-" . substr($card['numeroCarte'], -4)?></option>
+                    <?php endforeach; ?>
+                    <?php else : ?>
+                        <option value="">Aucune carte</option>
+                    <?php endif; ?>
+                    </select>
+                </div>
+
+                <div>
+                    <label style="margin-bottom: 5px;" for="codeSecuPayer">Code de sécurité de la carte</label>
+                    <input type="text" 
+                            class="form-control" 
+                            style="width:46%"
+                            name="codeSecuPayer"
+                            id="codeSecuPayer"
+                            >
+                </div>
+                <div>
+                    <button style="margin-top: 40%;" type="submit" name="submit" class="btn btn-primary">Payer</button>
+                </div>
+                
+            </div>
+            
+        </form>
+   
     </div>
     
 
@@ -58,3 +124,4 @@
     <div class="d-flex justify-content-center text-danger">Vous n'êtes pas connecté</div>
 <?php endif; ?>
 
+<script src="script_js/validationForm.js"></script>
