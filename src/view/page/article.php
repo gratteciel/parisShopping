@@ -19,13 +19,13 @@
         <div>Nom : <?php echo $article[0]['nom'] ;?></div>
         <div class="Notif_Bouton">
             <?php if(sizeof($alerte)==0) : ?>
-                    <button onclick="location.href='script_php/Alerte/addAlerte.php?idArticle=<?php echo $article[0]['idArticle'] ?>&idUtilisateur=<?php echo $_SESSION['idUtilisateur'] ?>&nom=<?php echo $article[0]['nom'] ?>'" class="buttonNoti" type="button">
+                    <button onclick="location.href='script_php/Alerte/addAlerte.php?idArticle=<?php echo $article[0]['idArticle'] ?>&nom=<?php echo $article[0]['nom'] ?>'" class="buttonNoti" type="button">
                     <span class="icon">
                         <img src="../images/alarm.png" style="width:21px;" alt="">
                     </span>
                     </button>
             <?php else : ?>
-                    <button onclick="location.href='script_php/Alerte/suppAlerte.php?idArticle=<?php echo $article[0]['idArticle'] ?>&idUtilisateur=<?php echo $_SESSION['idUtilisateur'] ?>&nom=<?php echo $article[0]['nom'] ?>'" class="buttonNoti" type="button">
+                    <button onclick="location.href='script_php/Alerte/suppAlerte.php?idArticle=<?php echo $article[0]['idArticle'] ?>&nom=<?php echo $article[0]['nom'] ?>'" class="buttonNoti" type="button">
                         <img class="logoOn" src="../images/alarmOn.png" style="width:21px;" alt="">
                     </button>
             <?php endif; ?>
@@ -45,6 +45,9 @@
     <?php else : ?>    
         <button onclick="location.href='Utilisateur/connexion.php'" type="button" class="btn btn-success">Connectez vous pour ajouter au panier</button>
     <?php endif; ?>
+        <button onclick="location.href='script_php/Quantite/addQuantity.php?idArticle=<?php echo $article[0]['idArticle'] ?>&nom=<?php echo $article[0]['nom'] ?>'" type="button" class="btn btn-success">Ajouter article</button>
+        <button onclick="location.href='script_php/Quantite/suppQuantity.php?idArticle=<?php echo $article[0]['idArticle'] ?>&nom=<?php echo $article[0]['nom'] ?>'" type="button" class="btn btn-success">Supprimer article</button>
+
     </div>
 
 <?php endif; ?>
