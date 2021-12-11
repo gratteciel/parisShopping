@@ -169,7 +169,7 @@ include_once __DIR__ . '/../bdd/connectBDD.php';
         
     
 
-        <script src="../script_js/validationForm.js"></script>
+        <script src="../script_js/validationForm.js?<?php echo time();?>"></script>
     </body>
     
 </html>

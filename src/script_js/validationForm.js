@@ -71,6 +71,30 @@ function affichageDuName(formName,name){
                 break;
         }
     }
+    else if(formName == 'ajoutVendeur'){
+
+        switch (name){
+            case 'mail':
+                sortie='votre mail';
+                break;
+            case 'mdp':
+                sortie='votre mot de passe';
+                break;
+            case 'nom':
+                sortie='votre nom';
+                break;
+            case 'prenom':
+                sortie='votre prenom';
+                break;
+            case 'pseudo':
+                sortie='votre pseudo';
+                break;
+            case 'numTel':
+                sortie='votre numero de télephone';
+                break;
+
+        }
+    }
     
     return sortie;
 }
@@ -90,10 +114,9 @@ function validateEmail (emailAdress)
       var erreur = 0;
       var message="";
   
-     
       for(const elem of tableau){
           
-        if(formName=='inscription' && elem=='mail'){ 
+        if(['inscription', 'ajoutVendeur'].indexOf(formName)>-1 && elem=='mail'){
             if(!validateEmail(document.getElementById(elem).value)){ //Doit etre un entier
                 erreur++;
                 message = "Email invalide!";
@@ -148,7 +171,7 @@ function validateEmail (emailAdress)
                 }
         }
         
-        if(formName=='inscription' && elem=='mdp'){ 
+        if(['inscription', 'ajoutVendeur'].indexOf(formName)>-1 && elem=='mdp'){
             if((document.getElementById(elem).value).length<8){ //Doit etre un entier
                 erreur++;
                 message = "La taille de votre mot de passe est trop petit (8 minimum)";

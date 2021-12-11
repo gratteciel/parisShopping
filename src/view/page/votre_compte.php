@@ -205,4 +205,4 @@ foreach($commandes as $co){
     </table>
 </div>
 
-<script src="script_js/validationForm.js"></script>
+<script src="script_js/validationForm.js?<?php echo time();?>"></script>

@@ -37,6 +37,7 @@ class Utilisateur
 
         return $sth->fetchAll(PDO::FETCH_ASSOC);
     }
+
     public static function commandes($pdo, $utilisateurId)
     {
         /** @var PDO $pdo */
@@ -51,8 +52,6 @@ class Utilisateur
 
         return $sth->fetchAll(PDO::FETCH_ASSOC);
     }
-
-
 
     public static function afficherValeurSession($fieldName)
     {

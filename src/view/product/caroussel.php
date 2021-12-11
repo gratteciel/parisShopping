@@ -25,7 +25,7 @@
                     <h5><?php echo $productInfo['nom']; ?></h5>
                     <a href="index.php?page=article&id=<?php echo $productInfo['idArticle']; ?>" class="bouton_Acheter">
                         <button type="button" class="w-100 btn btn-lg btn-outline-info">Afficher</button>
-                    </a>p
+                    </a>
                     <p><?php echo $productInfo['prixActuel']; ?> €</>
                 </div>
             </div>

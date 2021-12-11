@@ -62,6 +62,14 @@ if(get('alerts'))
             message = "Vous avez retiré " + valeurAlert +" de vos alertes";
             type="success";
             break;
+        case 'addVendeur':
+            message= "Vous avez bien ajouté <b>un vendeur</b>!";
+            type="success";
+            break;
+        case 'problemeVendeur':
+            message = "Erreur dans l'ajout d'un <b>vendeur</b>, le <b>vendeur</b> est déja présent dans la base de donnée ";
+            type="danger";
+            break;
 
     }
     

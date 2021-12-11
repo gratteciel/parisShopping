@@ -54,6 +54,10 @@ $configPageList = [
         'title' => 'Mon Panier',
         'description' => '...',
     ],
+    'administrateur' => [
+        'title' => 'Page Admin',
+        'description' =>'...',
+    ],
     'notfound'           => [
         'title'       => '....Main Title...',
         'description' => '...',

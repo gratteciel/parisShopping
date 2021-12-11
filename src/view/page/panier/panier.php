@@ -138,4 +138,4 @@
     <div class="d-flex justify-content-center text-danger">Vous n'êtes pas connecté</div>
 <?php endif; ?>
 
-<script src="script_js/validationForm.js"></script>
+<script src="script_js/validationForm.js?<?php echo time();?>"></script>
