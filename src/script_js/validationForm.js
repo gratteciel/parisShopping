@@ -71,7 +71,21 @@ function affichageDuName(formName,name){
                 break;
         }
     }
-    
+    else if(formName=='ajoutArticle'){
+        switch(name){
+            case 'nomModif':
+                sortie='le nom de l\'article';
+                break;
+            case 'quantiteModif':
+                sortie='la quantité de l\'article';
+                break;
+            case 'categorieModif':
+                sortie='la catégorie de l\'article';
+                break;
+
+        }
+    }
+  
     return sortie;
 }
 
@@ -94,10 +108,25 @@ function validateEmail (emailAdress)
       for(const elem of tableau){
           
         if(formName=='inscription' && elem=='mail'){ 
-            if(!validateEmail(document.getElementById(elem).value)){ //Doit etre un entier
+            if(!validateEmail(document.getElementById(elem).value)){ 
                 erreur++;
                 message = "Email invalide!";
                 }
+        }
+        if(formName=='ajoutArticle' && elem=='quantiteModif'){ 
+        
+            if(isNaN(document.getElementById(elem).value)){ //Doit etre un entier
+                erreur++;
+                message = "la quantité doit être un nombre entier!";
+               
+            }
+            else{
+                if(parseInt(document.getElementById(elem).value)<0){
+                    erreur++;
+                    message = "La quantité doit être supérieur ou égale à 0!";
+                }
+
+            }
         }
         if(formName=='paiement'){
             if(elem=='numero'){ 

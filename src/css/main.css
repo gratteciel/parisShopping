@@ -144,3 +144,11 @@ html, body{
     50%{opacity: 0;}
     100%{opacity: 1;}
 }
+
+.popover-title{
+    color: black;
+}
+
+.popover-content {
+    white-space: pre-wrap;
+}

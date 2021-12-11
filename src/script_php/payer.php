@@ -1,6 +1,7 @@
 <?php  
     include('../bdd/donneeSession.php');
     include('../bdd/connectBDD.php');
+    include('Quantite/checkQuantite.php');
     $erreur=0;
 
     if(empty($_POST["adressePayer"])  || empty($_POST["paiementPayer"]) || empty($_POST["codeSecuPayer"])){
@@ -94,6 +95,8 @@
         //On baisse la quantité d'article et on augmente le nombreVendu dans la base
         foreach($articlePannierGrouped as $a){
             requeteSqlArray("UPDATE article SET quantite= quantite - '{$a['quantitePanier']}', nombreVendu = nombreVendu + '{$a['quantitePanier']}' where idArticle = '{$a['idArticle']}'",$pdo);
+        
+            checkQuantiteNotification($a['idArticle'],$a['nom'],$a['quantiteSite']-$a['quantitePanier'],$a['quantiteSite'],$pdo);
         }
 
         //Création de paiementLog

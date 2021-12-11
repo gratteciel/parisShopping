@@ -1,7 +1,11 @@
 <?php 
+$estVendeur=false;
 if(LOGGED){
   $notificationListNew = requeteSqlArray("SELECT * from notification where idUtilisateur = '{$_SESSION['idUtilisateur']}' and  vu = 0 ORDER BY dateNotif DESC",$pdo);
   $textColor="text-dark";
+  if($_SESSION['estVendeur']){
+    $estVendeur=true;
+  }
   if(sizeof($notificationListNew)>0){
     $textColor="text-danger";
   }
@@ -27,6 +31,9 @@ if(LOGGED){
         </ul>
         <div class="text-end">
         <?php if(LOGGED) : ?>
+          <?php if($estVendeur) : ?>
+          <button onclick="location.href='?page=vendeur'" type="button" class="btn btn-danger">Vendeur</button>
+          <?php endif ?>
           <button onclick="location.href='?page=votre_compte'" type="button" class="btn btn-warning">Votre compte</button>
           <button onclick="location.href='script_php/Utilisateur/deconnexion.php'" type="button" class="btn btn-outline-light me-2">Déconnexion</button>
 

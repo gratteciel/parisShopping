@@ -62,6 +62,14 @@ if(get('alerts'))
             message = "Vous avez retiré " + valeurAlert +" de vos alertes";
             type="success";
             break;
+        case 'modifArticles':
+            message = "Vous bien modifié les articles que vous vendez!";
+            type="success";
+            break;
+        case 'ajoutArticleVendeur':
+            message = "Vous avez bien ajouté un article à la vente!";
+            type="success";
+            break;
 
     }
     
