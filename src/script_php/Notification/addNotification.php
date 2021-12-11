@@ -30,8 +30,7 @@
 $message='<html>
         <body>
             <div align="center">
-                
-                
+                '.$description.'
             </div>
         </body>
     </html>
