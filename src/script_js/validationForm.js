@@ -95,6 +95,20 @@ function affichageDuName(formName,name){
 
         }
     }
+    else if(formName == 'rechercheVendeur'){
+
+        switch (name){
+
+            case 'nom':
+                sortie='votre nom';
+                break;
+            case 'prenom':
+                sortie='votre prenom';
+                break;
+
+        }
+    }
+
     
     return sortie;
 }
@@ -109,6 +123,23 @@ function validateEmail (emailAdress)
   }
 }
 
+    function validateRechercherForm(idError)
+    {
+        var error =  document.getElementById(idError);
+
+        if (document.getElementById('rechercheMail').value == ''
+            && document.getElementById('rechercheNom').value == ''
+            && document.getElementById('recherchePrenom').value == '')
+        {
+            error.innerHTML = 'Please fill at least one input field!';
+            error.style.visibility = 'visible';
+            return false;
+        }
+
+        error.style.visibility='hidden';
+        return true;
+    }
+
   function validateForm(formName,tableau,idError){
    
       var erreur = 0;
@@ -122,6 +153,8 @@ function validateEmail (emailAdress)
                 message = "Email invalide!";
                 }
         }
+
+
         if(formName=='paiement'){
             if(elem=='numero'){ 
                 

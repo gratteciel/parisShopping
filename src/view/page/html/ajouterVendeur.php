@@ -12,7 +12,7 @@
                         <div style="display:flex;flex-direction:row">
                             <input type="email"
                                    class="form-control form-mod"
-                                   placeholder="mail"
+                                   placeholder="Email"
                                    style="width:80%"
                                    id='mail'
                                    name="mail">

@@ -67,7 +67,19 @@ if(get('alerts'))
             type="success";
             break;
         case 'problemeVendeur':
-            message = "Erreur dans l'ajout d'un <b>vendeur</b>, le <b>vendeur</b> est déja présent dans la base de donnée ";
+            message = "Erreur dans l'ajout d'un <b>vendeur</b>, le <b>vendeur</b> est déja présent dans la base de données ";
+            type="danger";
+            break;
+        case 'pasVendeur':
+            message = "Le profil que vous venez de mettre n'est pas un <b>vendeur</b> ";
+            type = "danger";
+            break;
+        case 'rechercheVendeurSuccess':
+            message = " Voici la liste des <b>vendeurs</b> ";
+            type ="success";
+            break;
+        case 'problemeRechercheVendeur':
+            message = "Erreur dans la recherche d'un <b>vendeur</b>, le <b>vendeur</b> n'est déja présent dans la base de données ";
             type="danger";
             break;
 

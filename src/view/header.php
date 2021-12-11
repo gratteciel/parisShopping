@@ -16,7 +16,10 @@
         </ul>
         <div class="text-end">
         <?php if(LOGGED) : ?>
+<!--        A modifier-->
+        <?php if($_SESSION['estAdmin']=1) : ?>
             <button onclick="location.href='?page=administrateur'" type="button" class="btn btn-outline-light me-2">Administrateur</button>
+                <?php endif ?>
           <button onclick="location.href='?page=votre_compte'" type="button" class="btn btn-warning">Votre compte</button>
           <button onclick="location.href='script_php/Utilisateur/deconnexion.php'" type="button" class="btn btn-outline-light me-2">Déconnexion</button>
 
