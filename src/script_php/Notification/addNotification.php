@@ -22,6 +22,9 @@
         requeteSqlArray("INSERT INTO notification (nom,descriptionNotif,dateNotif,idUtilisateur,lien) VALUES ('{$nom}','{$description}','{$date}', '{$alertInfo['idUtilisateur']}','article&id={$_REQUEST['idArticle']}');",$pdo);
 
     }
+
 header('Location: ../../index.php?page=article&id='.$_REQUEST["idArticle"]);
+
+
 exit();
 
