@@ -30,7 +30,7 @@
 $message='<html>
         <body>
             <div align="center">
-                '.$description.' 
+                
                 
             </div>
         </body>
@@ -44,8 +44,8 @@ $message='<html>
         requeteSqlArray("INSERT INTO notification (nom,descriptionNotif,dateNotif,idUtilisateur,lien) VALUES ('{$nom}','{$description}','{$date}', '{$alertInfo['idUtilisateur']}','article&id={$_REQUEST['idArticle']}');",$pdo);
 
         //pour envoyer un mail
-        $utilisateur = requeteSqlArray("SELECT * from utilisateur where idUtilisateur = '{$alertInfo['idUtilisateur']}'", $pdo)
-        mail($utilisateur[0]['mail'],$message,);
+        $utilisateur = requeteSqlArray("SELECT * from utilisateur where idUtilisateur = '{$alertInfo['idUtilisateur']}'", $pdo);
+        mail($utilisateur[0]['mail'],$nom,$message,$header);
         //
 
     }
