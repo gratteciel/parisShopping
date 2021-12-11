@@ -1,4 +1,5 @@
-<?php  
+
+    <?php
     include('../bdd/donneeSession.php');
     include('../bdd/connectBDD.php');
     $erreur=0;
