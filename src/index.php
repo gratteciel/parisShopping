@@ -20,7 +20,7 @@ if (!array_key_exists($page, $configPageList)) {
 <html>
     <head>
         <title><?php echo $configPageList[$page]['title'];?></title>
-
+        <link rel="icon" href="../images/favicon.ico" />
         <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/cover/">
         <link rel="stylesheet" type="text/css" href="css/main.css?<?php echo time(); ?>">
         <!-- Bootstrap core CSS -->

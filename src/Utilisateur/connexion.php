@@ -28,12 +28,15 @@ include_once __DIR__ . '/../bdd/connectBDD.php';
             $_SESSION['nom'] = $resultat[0]['nom'];
             $_SESSION['numTel'] = $resultat[0]['numTel'];
 
-            //Check si c'est un vendeur
-            $checkIfVendeur= requeteSqlArray("SELECT * from vendeur where utilisateurId = {$_SESSION['idUtilisateur']}",$pdo);
+            
 
-            if(sizeof($checkIfVendeur)==1){//Si c'est un vendeur
-                $_SESSION['estVendeur'] = true;
-                $_SESSION['idVendeur'] = $checkIfVendeur[0]['idVendeur'];
+            if($resultat[0]['estVendeur']==1){
+                //Check si c'est un vendeur
+                 $checkIfVendeur= requeteSqlArray("SELECT * from vendeur where utilisateurId = {$_SESSION['idUtilisateur']}",$pdo);
+                 if(sizeof($checkIfVendeur)==1){//Si c'est un vendeur
+                    $_SESSION['estVendeur'] = true;
+                    $_SESSION['idVendeur'] = $checkIfVendeur[0]['idVendeur'];
+                }
             }
             else{
                 $_SESSION['estVendeur'] = false;
