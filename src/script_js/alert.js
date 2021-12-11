@@ -70,6 +70,10 @@ if(get('alerts'))
             message = "Vous avez bien ajouté un article à la vente!";
             type="success";
             break;
+        case 'addEnchere':
+            message = "Vous avez bien proposé une meilleure offre!";
+            type="success";
+            break;
 
     }
     

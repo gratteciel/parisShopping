@@ -85,6 +85,14 @@ function affichageDuName(formName,name){
 
         }
     }
+    else if(formName=='encherir'){
+        switch(name){
+            case 'prix':
+                sortie='le prix';
+                break;
+
+        }
+    }
   
     return sortie;
 }
@@ -112,6 +120,20 @@ function validateEmail (emailAdress)
                 erreur++;
                 message = "Email invalide!";
                 }
+        }
+        if(formName=='encherir'){ 
+            if(isNaN(document.getElementById(elem).value)){ //Doit etre un entier
+                erreur++;
+                message = "Le prix doit être un nombre entier!";
+               
+            }
+            else{
+                if(parseInt(document.getElementById(elem).value)<0){
+                    erreur++;
+                    message = "La prix doit être supérieur ou égale à 0!";
+                }
+
+            }
         }
         if(formName=='ajoutArticle' && elem=='quantiteModif'){ 
         

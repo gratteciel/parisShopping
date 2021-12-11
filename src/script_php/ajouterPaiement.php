@@ -4,8 +4,7 @@
     include('../bdd/connectBDD.php');
     $erreur=0;
     
-    var_dump($_POST);
-
+  
     if(!is_numeric($_POST["numero"])){
         $erreur++;
     
@@ -35,13 +34,21 @@
         requeteSqlArray("INSERT INTO paiement (typeCarte, numeroCarte, nomCarte,dateExpiration,codeSecurite,utilisateurId) VALUES ('{$_POST["typeCarte"]}', '{$_POST["numero"]}', '{$_POST["nomCarte"]}','{$_POST["date"]}','{$_POST["codeSecu"]}','{$_SESSION["idUtilisateur"]}');",$pdo);
         date_default_timezone_set('Europe/Paris');
         $date = date('Y-m-d H:i:s', time());
-
+        
+      
         $carteSansDebut  = substr($_POST['numero'], -4);
-        //Création d'une notification
-        requeteSqlArray("INSERT INTO notification (nom,descriptionNotif,dateNotif,idUtilisateur,vu,lien) values ('Ajout d'un moyen de paiement','Votre ajout de paiement ({$_POST["typeCarte"]} terminant par {$carteSansDebut}) a bien été pris en compte','{$date}','{$_SESSION['idUtilisateur']}',0,'votre_compte');",$pdo);
-    }
-       
     
-    header('Location: ../index.php?page=' .$_REQUEST['page']  . '&alerts=1&tA=addPaiement&valA=rien');
+
+         //Création d'une notification
+        requeteSqlArray("INSERT INTO notification (nom,descriptionNotif,dateNotif,idUtilisateur,vu,lien) values ('Ajout d\'un moyen de paiement','Votre ajout de paiement ({$_POST["typeCarte"]} terminant par {$carteSansDebut}) a bien été pris en compte','{$date}','{$_SESSION['idUtilisateur']}',0,'votre_compte');",$pdo);
+    
+        
+    }
+    
+    $page=$_REQUEST['page'];
+    if($page=="article")
+        $page=$page.'&id='.$_REQUEST['id'];
+    
+    header('Location: ../index.php?page=' .$page  . '&alerts=1&tA=addPaiement&valA=rien');
     exit();
  ?>

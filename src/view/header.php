@@ -6,10 +6,14 @@ if(LOGGED){
   if($_SESSION['estVendeur']){
     $estVendeur=true;
   }
+  if($page=="notifications"){
+    $textColor="text-secondary";
+  }
+   else   $textColor= "text-dark";
   if(sizeof($notificationListNew)>0){
     $textColor="text-danger";
   }
-
+ 
 }
   
 ?>
@@ -22,11 +26,11 @@ if(LOGGED){
         </a>
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="?page=accueil" class="nav-link px-2 text-secondary">Accueil</a></li>
-          <li><a href="?page=toutParcourir" class="nav-link px-2 text-dark">Tout Parcourir </a></li>
+          <li><a href="?page=accueil" class="nav-link px-2 <?php if($page=="accueil") echo "text-secondary"; else   echo "text-dark"?>">Accueil</a></li>
+          <li><a href="?page=toutParcourir" class="nav-link px-2 <?php if($page=="toutParcourir") echo "text-secondary"; else   echo "text-dark"?>">Tout Parcourir </a></li>
           <?php if(LOGGED) : ?>
           <li><a href="?page=notifications" class="nav-link px-2 <?php echo $textColor; ?>" <?php if(sizeof($notificationListNew)>0) : ?>id="clignote"<?php endif ?>>Notifications</a></li>
-          <li><a href="?page=panier/panier" class="nav-link px-2 text-dark">Panier</a></li>
+          <li><a href="?page=panier/panier" class="nav-link px-2 <?php if($page=="panier/panier") echo "text-secondary"; else   echo "text-dark"?>">Panier</a></li>
           <?php endif ?>
         </ul>
         <div class="text-end">

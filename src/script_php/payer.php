@@ -33,7 +33,7 @@
    
     if($erreur==0){
         //Chargement des articles dans le panier
-        $articlesPanier = requeteSqlArray("SELECT * from article a, articleInPanier ap where a.idArticle = ap.articleId and (ap.utilisateurId = '{$_SESSION['idUtilisateur']}')",$pdo);
+        $articlesPanier = requeteSqlArray("SELECT * from article a, articleInPanier ap, articleimmediat ai where a.idArticle = ap.articleId and (ap.utilisateurId = '{$_SESSION['idUtilisateur']}') and ai.idArticle=a.idArticle",$pdo);
 
         //Chargement des articles IMMEDIATS dans le panier
         $articlesImmediatPanier = requeteSqlArray("SELECT * from article a, articleimmediat ai, articleInPanier ap where a.idArticle = ai.idArticle and a.idArticle = ap.articleId and (ap.utilisateurId = '{$_SESSION['idUtilisateur']}')",$pdo);
@@ -77,6 +77,7 @@
 
         }
         
+        //Check de la date d'expiration de la carte bleu
         $paiement = requeteSqlArray("SELECT * from paiement where idPaiement = '{$_POST["paiementPayer"]}' and utilisateurId = '{$_SESSION['idUtilisateur']}'",$pdo);
 
         date_default_timezone_set('Europe/Paris');
@@ -88,15 +89,17 @@
 
        
 
-        
+      
         
         //SI ON ARRIVE ICI C'EST QUE LE PAIEMENT VA AVOIR LIEU
         
 
         //On baisse la quantité d'article et on augmente le nombreVendu dans la base
         foreach($articlePannierGrouped as $a){
-            requeteSqlArray("UPDATE article SET quantite= quantite - '{$a['quantitePanier']}', nombreVendu = nombreVendu + '{$a['quantitePanier']}' where idArticle = '{$a['idArticle']}'",$pdo);
-        
+            requeteSqlArray("UPDATE article SET nombreVendu = nombreVendu + '{$a['quantitePanier']}' where idArticle = '{$a['idArticle']}'",$pdo);
+
+            requeteSqlArray("UPDATE articleimmediat SET quantite= quantite - '{$a['quantitePanier']}' where idArticle = '{$a['idArticle']}'",$pdo);
+
             checkQuantiteNotification($a['idArticle'],$a['nom'],$a['quantiteSite']-$a['quantitePanier'],$a['quantiteSite'],$pdo);
         }
 
