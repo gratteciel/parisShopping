@@ -6,8 +6,15 @@
         $typeArticle="Achat immédiat";
         if($productInfo['idArticleImmediat']==null && $productInfo['idArticleNegociation']==null)
             $typeArticle="Achat par meilleure offre";
-        else if($productInfo['idArticleImmediat']==null && $productInfo['idArticleEnchere']==null)
+        else if($productInfo['idArticleImmediat']==null && $productInfo['idArticleEnchere']==null){
+            $id = $productNegociationSelonId[$productInfo['idArticle']]['idArticleNegociation'];
+            $negociationNbUtilisateur =requeteSqlArray("SELECT COUNT(DISTINCT n.idUtilisateur) from negociation n where idArticleNegociation='{$id}' and (accepted=0 and (select COUNT(*) from negociation where idUtilisateur = n.idUtilisateur) <5)",$pdo);
             $typeArticle="Achat par négociation";
+    
+        }
+           
+
+
         ?>
 
     <div class="col">
@@ -29,6 +36,9 @@
                     <p class="card-text <?php if($productEnchereSelonId[$productInfo['idArticle']]['dateFin']<$date) echo "text-danger"; ?>" style="margin-top:0px;">Date de fin : <?php echo $productEnchereSelonId[$productInfo['idArticle']]['dateFin']; ?></p>
                 <?php elseif($typeArticle=="Achat par négociation"): ?>
                     <p class="card-text" style="margin:0px;">Prix de base: <?php echo $productNegociationSelonId[$productInfo['idArticle']]['prixBase']; ?> €</p>
+                    <p class="card-text" style="margin:0px;"><?php echo $negociationNbUtilisateur[0]['COUNT(DISTINCT n.idUtilisateur)']; ?> personnes en négociation en ce moment</p>
+                    
+                    
                 <?php endif; ?>
           
             </div>

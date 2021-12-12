@@ -453,7 +453,7 @@
     </div>
     <hr>
     <div class="text-center" style='margin-top:10px;width:90%'>
-    <?php if(sizeof($articlesAVendreImm)!=0) : ?>
+    <?php if(sizeof($articlesAVendreNegoc)!=0) : ?>
                         <button id="afficherPaie" type="button" style="color:white;float:right;" class="btn btn-outline-secondary "  onclick="afficherOuPas('articlesAVendreNegoc') ">Les afficher</button></h1>
                         <?php endif; ?>
         <h2 class="text-light" ><?php echo count($articlesAVendreNegoc) ?> en achat transaction vendeur/client (négociation) :</h1>
