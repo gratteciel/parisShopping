@@ -70,7 +70,31 @@ if(get('alerts'))
             message = "Vous avez bien ajouté un article à la vente!";
             type="success";
             break;
-
+        case 'addEnchere':
+            message = "Vous avez bien proposé une meilleure offre!";
+            type="success";
+            break;
+        case 'modifVendeurAdmin':
+            message = "Vous avez bien modifié les vendeurs!";
+            type="success";
+            break;
+        case 'acceptEnchere':
+            message = "Vous avez bien accepté les enchères!";
+            type="success";
+            break;
+        case 'addNegociation':
+            message = "Vous avez bien proposé une négociation pour cet article!";
+            type="success";
+            break;
+        case 'gestionNegocFail':
+            message = "Erreur sur le prix de la contre offre!";
+            type="danger";
+            break;
+        case 'gestionNegoc':
+            message = "Vous avez bien traité la négociation!";
+            type="success";
+            break;
+            
     }
     
 

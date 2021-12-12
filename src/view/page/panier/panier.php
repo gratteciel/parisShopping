@@ -77,7 +77,7 @@
         <div id="errordiv3" style="color:red;margin-left: 6px;"><?php echo $msgErreur?></div>
             <div style="display:flex;flex-direction:row;justify-content:space-around;margin-top:20px;">
                 <div>
-                    <label style="margin-bottom: 5px;" for="adressePayer">Adresse de facturation</label>
+                    <label style="margin-bottom: 5px;" for="adressePayer">Adresse de livraison</label>
                     <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal" class='aAjouter'>
                     (Ajouter)
                     </a>

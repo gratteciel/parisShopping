@@ -16,7 +16,7 @@ include_once __DIR__ . '/../bdd/connectBDD.php';
     if(isset($_POST["submit"])){ //Si il y a eu une requete de connection avec le form
         $resultat = requeteSqlArray("SELECT * from utilisateur where (mail like '{$emailOuPseudo}' OR pseudo like '{$emailOuPseudo}') AND mdp =password('{$mdp}')",$pdo);
         
-      
+       
 
         if(sizeof($resultat)==1){
             $_SESSION['LOGGED'] = true;

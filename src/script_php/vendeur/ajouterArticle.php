@@ -48,28 +48,75 @@ if(isset($_POST["submit"])) {
     $erreur=0;
     if($_POST['nomModif']=="" || $_POST['categorieModif']=="" || empty($_FILES) || $_POST['typeModif']=="")
         $erreur++;
-    if(!is_numeric($_POST['quantiteModif']))
-        $erreur++;
-    else if(intval($_POST['quantiteModif'])<0)
-        $erreur++;
 
-    if($_POST['typeModif']=="achatImm" ||$_POST['typeModif']=="nego" ){
-        if($_POST['prixModif']==""){
+    
+    if($_POST['typeModif']=="achatImm"){ //Si achat immédiat
+        if($_POST['prixModifImm']==""){
             $erreur++;
             $message="Vous n'avez pas inséré de prix";
         }
-        else if(!is_numeric($_POST['prixModif'])){
+        else if(!is_numeric($_POST['prixModifImm'])){
             $erreur++;
             $message="Le prix doit etre un entier!";
         }
             
-        else if(intval($_POST['prixModif'])<0){
+        else if(intval($_POST['prixModifImm'])<0){
             $message="Le prix doit etre un entier positif!";
             $erreur++;
         }
+        if($_POST['quantiteModif']==""){
+            $erreur++;
+            $message="Vous n'avez pas inséré de quantité";
+        }
+        else if(!is_numeric($_POST['quantiteModif'])){
+            $erreur++;
+            $message="La quantité doit etre un entier!";
+        }
+            
+        else if(intval($_POST['quantiteModif'])<0){
+            $erreur++;
+            $message="La quantité doit etre un entier positif!";
+        }
+            
             
     }
-    
+    else if($_POST['typeModif']=="meilleure"){//si achat par meilleure offre
+        if($_POST['dateFin']==""){
+            $erreur++;
+            $message="Vous n'avez pas rempli la date de fin de l'enchère";
+        }
+        if($_POST['dateDebut']==""){
+            $erreur++;
+            $message="Vous n'avez pas rempli la date de début de l'enchère";
+        }
+        if($_POST['prixDepart']==""){
+            $erreur++;
+            $message="Vous n'avez pas rempli le prix minimun de l'enchère";
+        }
+
+    }
+    else if($_POST['typeModif']=="nego"){//si achat par negociation
+        if($_POST['prixModifNego']==""){
+            $erreur++;
+            $message="Vous n'avez pas inséré de prix de base";
+        }
+        else if(!is_numeric($_POST['prixModifNego'])){
+            $erreur++;
+            $message="Le prix de basedoit etre un entier!";
+        }
+            
+        else if(intval($_POST['prixModifNego'])<0){
+            $message="Le prix de base doit etre un entier positif!";
+            $erreur++;
+        }
+
+    }
+    else{
+        $erreur++;
+        $message="Le type d'achat n'est pas valide";
+    }
+  
+   
     
     if($erreur==0){
             //concernant la photo principale / source = https://www.w3schools.com/PHP/php_file_upload.asp
@@ -105,13 +152,15 @@ if(isset($_POST["submit"])) {
 
 
         $nomPourEnregistreAutresPhotos=array();
-        
+      
         //Pour les autres photos
         if($erreur==0){
             for($i=0; $i<sizeof($_FILES['autrePhotos']['name']); $i++){
-             
-                gestionsPhotos("autrePhotos",$i,$erreur,$message);
-                $nomPourEnregistreAutresPhotos[$i] = "images_articles/" .basename($_FILES['autrePhotos']["name"][$i]);
+                if($_FILES['autrePhotos']["name"][$i]!=''){
+                    gestionsPhotos("autrePhotos",$i,$erreur,$message);
+                    $nomPourEnregistreAutresPhotos[$i] = "images_articles/" .basename($_FILES['autrePhotos']["name"][$i]);
+                }
+                
             }
         }
         
@@ -124,12 +173,30 @@ if(isset($_POST["submit"])) {
     if($erreur==0){
         
         //Ajout dans a table article
-        requeteSqlArray("INSERT INTO article (nom,description,quantite,nombreVendu,categorie,photoPrincipale,vendeurId) values ('{$_POST['nomModif']}','{$_POST['descriptionModif']}','{$_POST['quantiteModif']}',0,'{$_POST['categorieModif']}','{$enregistrer}','{$_SESSION['idVendeur']}');",$pdo);
+        requeteSqlArray("INSERT INTO article (nom,description,nombreVendu,categorie,photoPrincipale,vendeurId) values ('{$_POST['nomModif']}','{$_POST['descriptionModif']}',0,'{$_POST['categorieModif']}','{$enregistrer}','{$_SESSION['idVendeur']}');",$pdo);
         $idArticle=requeteSqlArray("SELECT LAST_INSERT_ID();",$pdo);
       
-
+      
         if($_POST['typeModif']=="achatImm"){ //Si achat immédiat
-            requeteSqlArray("INSERT INTO articleimmediat (prixActuel,idArticle) values ('{$_POST['prixModif']}','{$idArticle[0]['LAST_INSERT_ID()']}');",$pdo);
+            requeteSqlArray("INSERT INTO articleimmediat (prixActuel,idArticle,quantite) values ('{$_POST['prixModifImm']}','{$idArticle[0]['LAST_INSERT_ID()']}','{$_POST['quantiteModif']}');",$pdo);
+            $idArticleImm=requeteSqlArray("SELECT LAST_INSERT_ID();",$pdo);
+
+            //Ajout idArticleImmediat dans article
+            requeteSqlArray("UPDATE article set idArticleImmediat= '{$idArticleImm[0]['LAST_INSERT_ID()']}' where idArticle = '{$idArticle[0]['LAST_INSERT_ID()']}'",$pdo);
+        }
+        else if($_POST['typeModif']=="meilleure"){//si meilleure offre
+            requeteSqlArray("INSERT INTO articleenchere (dateDebut,idArticle,dateFin,prixDepart) values ('{$_POST['dateDebut']}','{$idArticle[0]['LAST_INSERT_ID()']}','{$_POST['dateFin']}','{$_POST['prixDepart']}');",$pdo);
+            $idArticleEnch=requeteSqlArray("SELECT LAST_INSERT_ID();",$pdo);
+
+            //Ajout idArticleEnchere dans article
+            requeteSqlArray("UPDATE article set idArticleEnchere= '{$idArticleEnch[0]['LAST_INSERT_ID()']}' where idArticle = '{$idArticle[0]['LAST_INSERT_ID()']}'",$pdo);
+        }
+        else if($_POST['typeModif']=="nego"){//Si negociation
+            requeteSqlArray("INSERT INTO articlenegociation (prixBase,idArticle) values ('{$_POST['prixModifNego']}','{$idArticle[0]['LAST_INSERT_ID()']}');",$pdo);
+            $idArticleNego=requeteSqlArray("SELECT LAST_INSERT_ID();",$pdo);
+
+            //Ajout idArticleEnchere dans article
+            requeteSqlArray("UPDATE article set idArticleNegociation= '{$idArticleNego[0]['LAST_INSERT_ID()']}' where idArticle = '{$idArticle[0]['LAST_INSERT_ID()']}'",$pdo);
         }
         
         for($i=0; $i<sizeof($_FILES['autrePhotos']['name']); $i++){
