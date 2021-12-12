@@ -61,7 +61,11 @@
                 
                 if(sizeof($articleNegociation)==0)
                     $erreur++;
-               
+                
+                
+              
+                
+            
                 if($erreur==0){ //Si tout est bon
                     //Création de paiementLog
                     requeteSqlArray("INSERT INTO paiementLog (typeCarte,numeroCarte,nomCarte,codeSecurite,dateExpiration)  values ('{$paiement[0]['typeCarte']}','{$paiement[0]['numeroCarte']}','{$paiement[0]['nomCarte']}','{$paiement[0]['codeSecurite']}','{$paiement[0]['dateExpiration']}');",$pdo);
@@ -76,15 +80,26 @@
                     date_default_timezone_set('Europe/Paris');
                     $date = date('Y-m-d H:i:s', time());
                     
-                    var_dump("test");
+                  
                     //Création de la ligne negociation
                     requeteSqlArray("INSERT INTO `negociation` (`prixUser`, `idUtilisateur`, `idArticleNegociation`,idAdresseLog,idPaiementLog,dateNegocUser) VALUES ('{$_POST['prix']}', '{$_SESSION['idUtilisateur']}','{$_REQUEST['idArtNegociation']}','{$idAdresseLog[0]['LAST_INSERT_ID()']}','{$idPaiementLog[0]['LAST_INSERT_ID()']}','{$date}')",$pdo);
                     
                   
                     
+
+
                 
-                    //Création d'une notification
+                    //Création d'une notification pour l'acheteur
                     requeteSqlArray("INSERT INTO notification (nom,descriptionNotif,dateNotif,idUtilisateur,vu,lien) values ('Vous avez négocié un article','Vous avez bien proposé une négociation avec le vendeur pour un article (me cliquer)','{$date}','{$_SESSION['idUtilisateur']}',0,'article&id={$_REQUEST["idArticle"]}');",$pdo);
+
+                    //Trouver l'id du vendeur
+                $idUserVendeur = requeteSqlArray("SELECT * from article a, vendeur v where a.idArticle= {$_REQUEST["idArticle"]} and a.vendeurId= v.idVendeur ",$pdo);
+                var_dump($idUserVendeur);
+                   
+
+                    //Création d'une notification pour le vendeur
+                    requeteSqlArray("INSERT INTO notification (nom,descriptionNotif,dateNotif,idUtilisateur,vu,lien) values ('Concernant votre article en négociation','Une personne a proposé un prix pour votre article : {$idUserVendeur[0]['nom']}','{$date}','{$idUserVendeur[0]['utilisateurId']}',0,'article&id={$_REQUEST["idArticle"]}');",$pdo);
+
 
                     
 

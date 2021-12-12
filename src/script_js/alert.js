@@ -86,6 +86,14 @@ if(get('alerts'))
             message = "Vous avez bien proposé une négociation pour cet article!";
             type="success";
             break;
+        case 'gestionNegocFail':
+            message = "Erreur sur le prix de la contre offre!";
+            type="danger";
+            break;
+        case 'gestionNegoc':
+            message = "Vous avez bien traité la négociation!";
+            type="success";
+            break;
             
     }
     

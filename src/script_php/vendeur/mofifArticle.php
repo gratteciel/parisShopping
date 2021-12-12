@@ -28,7 +28,7 @@
     date_default_timezone_set('Europe/Paris');
     $date = date('Y-m-d H:i:s', time());
     //Création d'une notification
-    requeteSqlArray("INSERT INTO notification (nom,descriptionNotif,dateNotif,idUtilisateur,vu,lien) values ('Vendeur - modification articles','Vous avez bien modifié les articles que vous vendez','{$date}','{$_SESSION['idUtilisateur']}',0,'vendeur&affichage=block');",$pdo);
+    requeteSqlArray("INSERT INTO notification (nom,descriptionNotif,dateNotif,idUtilisateur,vu,lien) values ('Vendeur - modification articles','Vous avez bien modifié les articles que vous vendez','{$date}','{$_SESSION['idUtilisateur']}',0,'vendeur&affichage=block&ou=1');",$pdo);
 
     header('Location: ../../index.php?page=vendeur&alerts=1&tA=modifArticles&valA=rien&affichage=block&ou=1');
     exit();

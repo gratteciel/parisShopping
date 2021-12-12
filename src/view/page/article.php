@@ -5,7 +5,7 @@ include_once PROJECT_ROOT_DIR . '/src/include/Utilisateur.php';
     $date = date('Y-m-d H:i:s', time());
     $msgErreur="";
     $article;
-
+    $vendeurConnecte=false;
      if(isset($_GET['id'])){
         
         if(isset($_REQUEST['err']) && isset($_REQUEST['val'])){
@@ -43,16 +43,20 @@ include_once PROJECT_ROOT_DIR . '/src/include/Utilisateur.php';
 
                 if(LOGGED){
                     $prochaineNego=true;
+                    $vousAvezLarticle=false;
                     $vendeurPasOkAvecVotrePrix=false;
                     $negociationWithUser =requeteSqlArray("SELECT * from negociation where idArticleNegociation='{$article[0]['idArticleNegociation']}' and idUtilisateur = {$_SESSION['idUtilisateur']} ORDER BY dateNegocUser DESC",$pdo);
                     $tailleNegoWithUser =sizeof($negociationWithUser);
+
+
 
                     if(sizeof($negociationWithUser)>0){
                         if($negociationWithUser[0]['traiter']==0 && $negociationWithUser[0]['accepted']==0){
                             $prochaineNego=false;
                             $prixNegoc= $negociationWithUser[0]['prixUser'];
                         }
-                        else if($negociationWithUser[0]['traiter']==1 && $negociationWithUser[0]['accepted']==0 ){
+                        else if($negociationWithUser[0]['traiter']==1 && $negociationWithUser[0]['accepted']==0 )
+                        {
                             if($tailleNegoWithUser<5){
                                 $prochaineNego=true;
                                 $vendeurPasOkAvecVotrePrix=true;
@@ -66,10 +70,31 @@ include_once PROJECT_ROOT_DIR . '/src/include/Utilisateur.php';
                             $contreOffre= $negociationWithUser[0]['contreOffre'];
                             
                         }
+                        else if($negociationWithUser[0]['traiter']==1 && $negociationWithUser[0]['accepted']==1 ){
+                            $prixNegoc= $negociationWithUser[0]['prixUser'];
+                            $vousAvezLarticle=true;
+                            $prochaineNego=false;
+                        }
+                        
                     }
                     
-                        
+                    $vendeurConnecte=false;
+                    //Si c'est le vendeur
+                    if($_SESSION['estVendeur']){
                     
+                        if($_SESSION['idVendeur']==$article[0]['vendeurId']){
+                            $vendeurConnecte=true;
+                            $negociationATraiter = requeteSqlArray("SELECT * from negociation where idArticleNegociation='{$article[0]['idArticleNegociation']}' and traiter=0",$pdo);
+                            
+                            $userNegoATraiter;
+                            foreach($negociationATraiter as $n){
+                                $userNegoATraiter[$n['idNegociation']] = requeteSqlArray("SELECT * from utilisateur where idUtilisateur = {$n['idUtilisateur']}",$pdo);
+                            }
+                           
+
+
+                        }
+                    }
                     
                     
                 }
@@ -258,19 +283,24 @@ include_once PROJECT_ROOT_DIR . '/src/include/Utilisateur.php';
         <?php elseif($typeArticle==2) : ?>
             <div style="margin-top:10px;margin-bottom:3px;">Article en vente par négociation</div>
             <div style="margin-top:10px;margin-bottom:3px;">Prix de base du vendeur: <?php echo $article[0]['prixBase'] ?>€</div>
-            <div style="margin-bottom:3px;"><?php echo $negociationNbUtilisateur[0]['COUNT(DISTINCT n.idUtilisateur)'];
+            
+            
+
+            
+            <?php if($article[0]['fini']==0) : ?>
+                <div style="margin-bottom:3px;"><?php echo $negociationNbUtilisateur[0]['COUNT(DISTINCT n.idUtilisateur)'];
                 if($negociationNbUtilisateur[0]['COUNT(DISTINCT n.idUtilisateur)']>1)
                     echo " personnes";
                 else
                     echo " personne";
             ?> en train de négocier avec le vendeur</div>
 
-            
-            <?php if($article[0]['fini']==0) : ?>
                 <?php if(LOGGED) : ?>
                     <?php $page='article&id='.$article[0]['idArticle']; include('view/page/html/ajouterAdresse.php');?>
                     <?php include('view/page/html/ajouterPaiement.php');?>
-
+                    <?php if($vousAvezLarticle) :?>
+                        <p class="text-success" >Vous avez réussi à négocier avec le vendeur, rentrouvez l'article dans vos commandes</p>
+                    <?php endif ?>
                     <?php if($vendeurPasOkAvecVotrePrix && $prochaineNego) : ?>
                         <p class="text-danger" style="margin-top:10px;margin-bottom:0px;">Le vendeur a examiné votre prix de négociation (<?php echo $prixNegoc ?>€) et ne l'a pas accepté, sa contre offre est : <?php echo $contreOffre ?>€</p>
                         <p class="text-success" >Vous avez encore <?php echo (5-sizeof($negociationWithUser)) ?> tentatives pour négocier: </p>
@@ -346,7 +376,7 @@ include_once PROJECT_ROOT_DIR . '/src/include/Utilisateur.php';
                      
                         <div id="errordiv3" style="color:red;margin-left: 6px;"><?php echo $msgErreur ?></div>
                     </form>
-                    <?php elseif($vendeurPasOkAvecVotrePrix==false): ?>
+                    <?php elseif($vendeurPasOkAvecVotrePrix==false && $vousAvezLarticle==false): ?>
                         <p class="text-success" style="margin-top:10px;margin-bottom:0px;">Vous avez déjà proposé une négociation (<?php echo $prixNegoc ?>€) et elle n'a pas encore été traité par le vendeur</p>
                     <?php endif; ?>
                 <?php else : ?>
@@ -361,6 +391,83 @@ include_once PROJECT_ROOT_DIR . '/src/include/Utilisateur.php';
         
 
     </div>
+    <?php if($vendeurConnecte && $typeArticle==2) :?>
+   
+      
+        
+            <div style='margin-top:70px'>
+            <hr>
+            <h1 class="text-danger" >Pannel Vendeur</h1>
+            <hr>
+            <div class="text-center" >
+                <?php if(sizeof($negociationATraiter)!=0) : ?>
+                    <button id="afficherPaie" type="button" style="color:white;float:right;" class="btn btn-outline-secondary "  onclick="afficherOuPas('negoATraiter') ">Les afficher</button></h1>
+                <?php endif; ?>
+                <h2 class="text-light" ><?php  echo count($negociationATraiter) ?> négociations à traiter :</h1>
+                </div>
+            </div>
+            <div id="negoATraiter" class="text-center" style="display:none;margin:3%;">
+
+                
+                    
+
+                            
+                                <div style="display:flex;flex-direction:column;justify-content: center;">
+                                <table class="table table-bordered"  style="color:white;">
+                                    <thead>
+                                        <tr>
+                                          
+                                            
+                                            <th scope="col" >Utilisateur</th>
+                                            <th scope="col">Date de la proposition</th>
+                                            <th scope="col">Prix proposé</th>
+                                            <th scope="col">Accepter/Contre offre</th>
+                                            <th style="width:10%" scope="col">Prix de la contre offre</th>
+                                            <th scope="col">Envoyer</th>
+                                            
+                                        
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php foreach ($negociationATraiter as $a): ?>
+                                        
+                                        <form action="script_php/vendeur/gestionNegoc.php?idArticleNegociation=<?php echo $article[0]['idArticleNegociation'];?>&idArticle=<?php echo $article[0]['idArticle'];?>" method="post" >
+                                            <tr>
+                                                <?php
+                                                
+                                                echo "<td>".$userNegoATraiter[$a['idNegociation']][0]['mail']."</td>";
+                                                echo "<td>".$a['dateNegocUser']."</td>";
+
+                                                echo "<td>".$a['prixUser']."€</td>";
+                                                echo "<td>" ?>
+                                                <select name="type<?php echo $a['idNegociation'] ?>" class="form-select"aria-label="Default select example">
+                                                    
+                                                        <option value="1" selected>Contre offre</option>
+                                                    
+                                                        <option value="2">Accepter</option>
+                                                </select>
+                                              
+                                                </td>
+                                                <td><input class="form-control" name="contreOffre<?php echo $a['idNegociation'] ?>" id="contreOffre<?php echo $a['idNegociation'] ?>" placeholder="Prix" type="number"></td>
+                                                <td><button  type="submit" name="submit<?php echo $a['idNegociation'] ?>" class="btn btn-warning" >Envoyer</button></td>
+                                            </tr>
+                                        </ul>
+                                        </form>
+                                    <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div>
+                                
+                                </div>
+                        
+                            
+                    
+                       
+            </div>
+            <hr>
+
+    <?php endif; ?>
 
 <?php endif; ?>
 

@@ -7,10 +7,31 @@
             $msgErreur2="";
             $displayArticlesImm='none';
             $displayArticlesEnch='none';
+            $displayArticlesNegoc='none';
 
             $articlesAVendreImm= requeteSqlArray("SELECT * from article a, articleimmediat ai where vendeurId = {$_SESSION['idVendeur']} and a.idArticle = ai.idArticle", $pdo);
 
             $articlesAVendreEnch= requeteSqlArray("SELECT * from article a, articleenchere ae where vendeurId = {$_SESSION['idVendeur']} and a.idArticle = ae.idArticle and fini=0", $pdo);
+
+            $articlesAVendreNegoc= requeteSqlArray("SELECT * from article a, articlenegociation an where vendeurId = {$_SESSION['idVendeur']} and a.idArticle = an.idArticle and fini=0", $pdo);
+
+            foreach($articlesAVendreNegoc as $a){
+                $negociationNbUtilisateurEnCeMoment[$a['idArticle']] =requeteSqlArray("SELECT COUNT(DISTINCT n.idUtilisateur) from negociation n where idArticleNegociation='{$a['idArticleNegociation']}' and (accepted=0 and (select COUNT(*) from negociation where idUtilisateur = n.idUtilisateur) <5)",$pdo);
+                $negociationNbUtilisateurTotal[$a['idArticle']] =requeteSqlArray("SELECT COUNT(DISTINCT n.idUtilisateur) from negociation n where idArticleNegociation='{$a['idArticleNegociation']}'",$pdo);
+                $negociationATraiter[$a['idArticle']] = requeteSqlArray("SELECT * from negociation where idArticleNegociation='{$a['idArticleNegociation']}' and traiter=0",$pdo);
+            }
+           
+            
+
+            $histoNegoc= requeteSqlArray("SELECT * from article a, articlenegociation an where vendeurId = {$_SESSION['idVendeur']} and a.idArticle = an.idArticle and fini=1", $pdo);
+            $logHistoNegoc;
+        
+            foreach($histoNegoc as $e){
+                $logHistoNegoc[$e['idArticle']]=null;
+                $logHistoNegoc[$e['idArticle']] =requeteSqlArray("SELECT * from articlelog,commandeLog,utilisateur where articleId= {$e['idArticle']} and commandeLogId = idCommandeLog and utilisateurId=idUtilisateur", $pdo);
+               
+            }
+
             $winner=null;
             foreach($articlesAVendreEnch as $a){
                 $result = requeteSqlArray("SELECT * from enchere where idArticleEnchere = {$a['idArticleEnchere']} ORDER BY prixMax DESC", $pdo);
@@ -45,6 +66,9 @@
                     $displayArticlesImm=$_REQUEST['affichage']; 
                 else if($_REQUEST['ou']==2){
                     $displayArticlesEnch=$_REQUEST['affichage']; 
+                }
+                else if($_REQUEST['ou']==3){
+                    $displayArticlesNegoc=$_REQUEST['affichage']; 
                 }
             }
             if(isset($_REQUEST['err']) && isset($_REQUEST['msg'])){
@@ -427,8 +451,82 @@
               
            
     </div>
-
     <hr>
+    <div class="text-center" style='margin-top:10px;width:90%'>
+    <?php if(sizeof($articlesAVendreImm)!=0) : ?>
+                        <button id="afficherPaie" type="button" style="color:white;float:right;" class="btn btn-outline-secondary "  onclick="afficherOuPas('articlesAVendreNegoc') ">Les afficher</button></h1>
+                        <?php endif; ?>
+        <h2 class="text-light" ><?php echo count($articlesAVendreNegoc) ?> en achat transaction vendeur/client (négociation) :</h1>
+        
+    </div>
+    <div id="articlesAVendreNegoc" class="text-center" style="display:<?php echo $displayArticlesNegoc?>;margin:3%;">
+
+        
+            
+
+                    <form action="script_php/vendeur/modifArticleNegoc.php" method="post" style="display:flex;flex-direction:column;justify-content: center;">
+                        <div >
+                        <table class="table table-bordered"  style="color:white;">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Id de l'article</th>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col"  style="width:18%">Catégorie</th>
+                                    <th scope="col">Prix de base (ordre de grandeur)</th>
+                                    <th scope="col">Nombre de personnes en négociation en ce moment</th>
+                                    <th scope="col">Nombre de personnes qui ont négociés</th>
+                                    <th scope="col">Nombre demandes à traiter</th>
+                                
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach ($articlesAVendreNegoc as $a): ?>
+                                    <tr>
+                                        <?php
+                                        echo "<td><a href='index.php?page=article&id=". $a['idArticle']."'>". $a['idArticle'] ."</a></td>";
+                                        echo "<td><a href='index.php?page=article&id=". $a['idArticle']."'>". $a['nom'] ."</a></td>";
+                                        echo "<td>" ?>
+                                        <select name="categorie<?php echo $a['idArticle'] ?>" class="form-select"aria-label="Default select example">
+                                            <?php if($a['categorie']=="régulier") : ?>
+                                                <option value="régulier" selected>régulier</option>
+                                            <?php else : ?>
+                                                <option value="régulier">régulier</option>
+                                            <?php endif; ?>
+                                            <?php if($a['categorie']=="rare") : ?>
+                                                <option value="rare" selected>rare</option>
+                                            <?php else : ?>
+                                                <option value="rare">rare</option>
+                                            <?php endif; ?>
+                                            <?php if($a['categorie']=="haut de gamme") : ?>
+                                                <option value="haut de gamme" selected>haut de gamme</option>
+                                            <?php else : ?>
+                                                <option value="haut de gamme">haut de gamme</option>
+                                            <?php endif; ?>
+                                        </select>
+                                        <?php
+                                        echo "</td><td>". $a['prixBase'] ."€</td>";
+                                       
+                                        echo "<td>". $negociationNbUtilisateurEnCeMoment[$a['idArticle']][0]['COUNT(DISTINCT n.idUtilisateur)'] . "</td>"   ; 
+                                        echo "<td>". $negociationNbUtilisateurTotal[$a['idArticle']][0]['COUNT(DISTINCT n.idUtilisateur)'] . "</td>";  
+                                        echo "<td>". sizeof($negociationATraiter[$a['idArticle']]) ."</td>";
+                                        ?>
+        
+                                    </tr>
+                                </ul>
+                            <?php endforeach; ?>
+                                </tbody>
+                             </table>
+                        </div>
+                        <div>
+                        <button  type="submit" name="submit" class="btn btn-warning" >Modifier les articles</button>
+                        </div>
+                </form>
+                    
+              
+           
+    </div>
+    <hr>
+ 
     <div  class="flexEspaceEntre  text-center"  style="margin-top:40px">
     
         <h1 class="text-light">Historique des enchères : <?php echo count($histoEnch) ?></h1>
@@ -504,7 +602,79 @@
               
            
     </div>
+    <hr>
+ 
+ <div  class="flexEspaceEntre  text-center"  style="margin-top:40px">
+ 
+     <h1 class="text-light">Historique des négociations : <?php echo count($histoNegoc) ?></h1>
+     <?php if(sizeof($histoNegoc)!=0) : ?>
+     <div>
+     <button id="afficherPaie" type="button" style="color:white" class="btn btn-outline-secondary "  onclick="afficherOuPas('histoNegoc') ">Les afficher</button></h1>
+     </div>
+                    
+ <?php endif; ?>
+     
+     
+ </div>
+ <div id="histoNegoc" class="text-center" style="display:none;margin:3%;">
 
+     
+         
+
+                 
+                     <div >
+                     <table class="table table-bordered"  style="color:white;">
+                         <thead>
+                             <tr>
+                                 <th scope="col">Id de l'article</th>
+                                 <th scope="col">Nom</th>
+                                 <th scope="col"  style="width:18%">Catégorie</th>
+                                 <th scope="col" >Prix de base</th>
+                                 <th scope="col">Prix d'achat</th>
+                                 <th scope="col">Payé par</th>
+                                 
+                             
+                             </tr>
+                         </thead>
+                         <tbody>
+                         <?php foreach ($histoNegoc as $a): ?>
+                                
+                                 <tr>
+                                     <?php 
+                                     echo "<td><a href='index.php?page=article&id=". $a['idArticle']."'>". $a['idArticle'] ."</a></td>";
+                                     echo "<td><a href='index.php?page=article&id=". $a['idArticle']."'>". $a['nom'] ."</a></td>";
+                                     echo "<td>" ?>
+                                   
+                                         <?php echo $a['categorie']?>
+                                  
+                                     
+                                   
+                                     </td>
+                                     <?php
+                                    
+                                            echo "<td style='width:15%;'>".$a['prixBase']."€</td>";
+                                             echo "<td style='width:15%;'>".$logHistoNegoc[$a['idArticle']][0]['prixAchat']."€</td>";
+                                   
+                                      
+                                         
+                                        
+                                             echo "<td style='width:15%;'>".$logHistoNegoc[$a['idArticle']][0]['mail']."</td>";
+                                        
+                                       
+                                     
+                                     ?>
+                                     
+                                 </tr>
+                             
+                         <?php endforeach; ?>
+                             </tbody>
+                          </table>
+                     </div>
+                    
+                 
+           
+        
+ </div>
 
     </div>
 
