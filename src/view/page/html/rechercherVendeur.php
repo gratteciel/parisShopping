@@ -52,18 +52,3 @@
 
 
 </div>
-
-<!--<div class="notification" id="vendeurRecherche" style="display: block; margin: 10px;">
-    <?php /*$result = Admin::rechercherVendeur($pdo, $_POST); */?>
-
-    <a href="index.php?page=administrateur" class="list-group-item" style="margin-bottom:10px;">
-        <?php /*foreach ( $result as $elem =>$vendeur): */?>
-            <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1"><?php /*$vendeur['nom'];*/?>></h5>
-                <h5 class="mb-1"><?php /*$vendeur['prenom'];*/?>></h5>
-            </div>
-            <button style="float: right" type="button" class="btn btn-danger">Danger</button>
-        <?php /*endforeach;*/?>
-    </a>
-
-</div>-->

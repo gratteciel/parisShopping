@@ -7,7 +7,7 @@ include_once __DIR__ . '/../../include/Admin.php';
 
 <!-- Protect administrateur pages -->
 <?php if (empty($_SESSION['estAdmin'])): ?>
-    <h1>You are not allowed to access this page! Please login as Administrateur!</h1>
+    <h1>Vous n'êtes pas autorisé à acceder à cette page !</h1>
     <?php exit(); ?>
 <?php endif; ?>
 

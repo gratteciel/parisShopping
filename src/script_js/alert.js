@@ -82,6 +82,10 @@ if(get('alerts'))
             message = "Erreur dans la recherche d'un <b>vendeur</b>, le <b>vendeur</b> n'est déja présent dans la base de données ";
             type="danger";
             break;
+        case 'supprVendeur' :
+            message = "Vous avez supprimer un vendeur avec succes" ;
+            type = "success";
+            break;
 
     }
     

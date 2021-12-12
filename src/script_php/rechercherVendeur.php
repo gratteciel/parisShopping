@@ -21,7 +21,6 @@ catch (\Exception $e) {
 
 // register in the session the result. and we will unset it in the redirected page
 $_SESSION['rechercherVendeurResults'] = $foundEntries;
-
 // success
-header('Location: ../index.php?page=' .$_REQUEST['page']  . '&alerts=1&tA=rechercheVendeurSuccess&valA=rien');
+header('Location: ../index.php?page=' .$_REQUEST['page']  . '&alerts=1&tA=supprVendeur&valA=rien');
 exit();
