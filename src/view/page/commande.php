@@ -70,7 +70,7 @@
                             <tr>
                                 <?php
                                 echo "<td>". $articles[$article['idArticleLog']][0]['nom'] ."</td>";
-                                echo "<td>". $article['prixAchat'] ."</td>";
+                                echo "<td>". $article['prixAchat'] ."€</td>";
                                 echo "<td style='width:1%;'>";
                                 ?>
                         

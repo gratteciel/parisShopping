@@ -58,6 +58,10 @@ $configPageList = [
         'title' => 'Pannel Vendeur',
         'description' => '...',
     ],
+    'admin' => [
+        'title' => 'Pannel admininstrateur',
+        'description' => '...',
+    ],
     'notfound'           => [
         'title'       => '....Main Title...',
         'description' => '...',

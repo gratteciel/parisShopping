@@ -322,11 +322,15 @@
                             </thead>
                             <tbody>
                             <?php foreach ($articlesAVendreEnch as $a): ?>
+                                
                                     <tr>
                                         <?php
                                         echo "<td><a href='index.php?page=article&id=". $a['idArticle']."'>". $a['idArticle'] ."</a></td>";
                                         echo "<td><a href='index.php?page=article&id=". $a['idArticle']."'>". $a['nom'] ."</a></td>";
                                         echo "<td>" ?>
+                                        <?php if($a['fini']==1) :?>
+                                            <?php echo $a['categorie']?> (Enchère finie)
+                                        <?php else :?>
                                         <select name="categorie<?php echo $a['idArticle'] ?>" class="form-select"aria-label="Default select example">
                                             <?php if($a['categorie']=="régulier") : ?>
                                                 <option value="régulier" selected>régulier</option>
@@ -344,14 +348,23 @@
                                                 <option value="haut de gamme">haut de gamme</option>
                                             <?php endif; ?>
                                         </select>
+                                        <?php endif;?>
+                                        </td>
                                         <?php
-                                        echo "<td style='width:15%;'><input class='form-control' type='date' name='dateDebut".  $a['idArticle']."' value='".$a['dateDebut']."'></td>";
-                                        echo " <td style='width:15%;'><input  class='form-control text-center' type='date' name='dateFin".  $a['idArticle']."' value='".$a['dateFin']."'></td>";                                
+                                        if($a['fini']==0){
+                                            echo "<td style='width:15%;'><input class='form-control' type='date' name='dateDebut".  $a['idArticle']."' value='".$a['dateDebut']."'></td>";
+                                            echo " <td style='width:15%;'><input  class='form-control text-center' type='date' name='dateFin".  $a['idArticle']."' value='".$a['dateFin']."'></td>"; 
+                                        }
+                                        else{
+                                            echo "<td style='width:15%;'>".$a['dateDebut']." (Enchère finie)</td>";
+                                            echo " <td style='width:15%;'>".$a['dateFin']." (Enchère finie)</td>"; 
+                                        }
+                                                                       
                                         
                                         ?>
                                         
                                     </tr>
-                                </ul>
+                                
                             <?php endforeach; ?>
                                 </tbody>
                              </table>

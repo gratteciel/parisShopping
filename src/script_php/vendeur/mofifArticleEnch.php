@@ -7,14 +7,17 @@
 
 
     foreach($articlesAVendre as $a){
-        $valeurCategorie = $_POST["categorie".$a['idArticle']];
-        $dateDebut = $_POST["dateDebut".$a['idArticle']];
-        $dateFin = $_POST["dateFin".$a['idArticle']];
+        if($a['fini']==0){
+            $valeurCategorie = $_POST["categorie".$a['idArticle']];
+            $dateDebut = $_POST["dateDebut".$a['idArticle']];
+            $dateFin = $_POST["dateFin".$a['idArticle']];
+    
+           
+            requeteSqlArray("UPDATE article SET categorie = '{$valeurCategorie}' where vendeurId = {$_SESSION['idVendeur']} and idArticle = {$a['idArticle']}", $pdo);
+           
+            requeteSqlArray("UPDATE articleenchere SET  dateDebut='{$dateDebut}', dateFin = '{$dateFin}' where idArticle = {$a['idArticle']}", $pdo);  
+        }
 
-       
-        requeteSqlArray("UPDATE article SET categorie = '{$valeurCategorie}' where vendeurId = {$_SESSION['idVendeur']} and idArticle = {$a['idArticle']}", $pdo);
-       
-        requeteSqlArray("UPDATE articleenchere SET  dateDebut='{$dateDebut}', dateFin = '{$dateFin}' where idArticle = {$a['idArticle']}", $pdo);  
  
     }
 

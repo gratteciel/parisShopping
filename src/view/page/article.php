@@ -127,7 +127,10 @@ include_once PROJECT_ROOT_DIR . '/src/include/Utilisateur.php';
             <?php else : ?>
                 <div style="margin-top:10px;margin-bottom:5px">Aucune offre pour l'instant</div> 
             <?php endif; ?>
-            <?php if($article[0]['dateFin']> $date) : ?>
+            <?php if($date < $article[0]['dateDebut']) : ?>
+                <p style="color:red;margin-top:10px;margin-bottom:0px;">L'enchère n'a pas commencé!</p>
+            
+            <?php elseif($article[0]['dateFin']> $date) : ?>
                 <?php if(LOGGED) : ?>
                     <?php $page='article&id='.$article[0]['idArticle']; include('view/page/html/ajouterAdresse.php');?>
                     <?php include('view/page/html/ajouterPaiement.php');?>

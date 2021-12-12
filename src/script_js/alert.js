@@ -74,6 +74,14 @@ if(get('alerts'))
             message = "Vous avez bien proposé une meilleure offre!";
             type="success";
             break;
+        case 'modifVendeurAdmin':
+            message = "Vous avez bien modifié les vendeurs!";
+            type="success";
+            break;
+        case 'acceptEnchere':
+            message = "Vous avez bien accepté les enchères!";
+            type="success";
+            break;
 
     }
     

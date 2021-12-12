@@ -35,9 +35,13 @@ if(LOGGED){
         </ul>
         <div class="text-end">
         <?php if(LOGGED) : ?>
+          <?php if($_SESSION['estAdmin']) : ?>
+          <button onclick="location.href='?page=admin'" type="button" class="btn btn-danger">Admin</button>
+          <?php endif ?>
           <?php if($estVendeur) : ?>
           <button onclick="location.href='?page=vendeur'" type="button" class="btn btn-danger">Vendeur</button>
           <?php endif ?>
+          
           <button onclick="location.href='?page=votre_compte'" type="button" class="btn btn-warning">Votre compte</button>
           <button onclick="location.href='script_php/Utilisateur/deconnexion.php'" type="button" class="btn btn-outline-light me-2">Déconnexion</button>
 
