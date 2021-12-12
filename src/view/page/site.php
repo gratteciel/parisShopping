@@ -6,10 +6,12 @@
         </div>
         <h2>Etapes de la création du site</h2>
 
-        <ul class="ul_presentation_site">Etape 1 :</ul>
-        <ul class="ul_presentation_site">Etape 2 :</ul>
-        <ul class="ul_presentation_site">Etape 3 :</ul>
-        <ul class="ul_presentation_site">Etape 4 :</ul>
+        <ul class="ul_presentation_site">Etape 1 : Création des pages principales : accueil, tout parcourir, notifications, panier</ul>
+        <ul class="ul_presentation_site">Etape 2 : Liens entre les pages, remplissage de celles-ci</ul>
+        <ul class="ul_presentation_site">Etape 3 : Ajout des parties utilisateurs, administrateurs et vendeurs</ul>
+        <ul class="ul_presentation_site">Etape 4 : Partie paiement et adresses</ul>
+        <ul class="ul_presentation_site">Etape 5 : Enchères, transaction vendeurs-clients</ul>
+        <ul class="ul_presentation_site">Etape 6 : Finalisation et optimisation du site</ul>
 
 
     </div>

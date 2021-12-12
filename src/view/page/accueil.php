@@ -1,7 +1,7 @@
 <div class="Presentation_site p-3 pb-md-4 mx-auto text-center">
-    <h1 style="color: white" class="display-4 fw-normal">Présentation du site</h1>
-    <p class="fs-5 text-muted">Voici une petite description de notre site d'eshopping sur paris </p>
-    <!-- Mettre une photo du shopping -->
+    <h1 style="color: white" class="display-4 fw-normal">Paris Shopping</h1>
+    </br>
+    <p class="fs-5 text-muted"> Amateurs de composants PC et de périphériques, vous êtes au bon endroit. </br> Délaissez Amazon, EBAY ou LDLC, ici vous trouverez forcément votre bonheur. Nous vous garantissons les meillleurs prix, et vous proposons de trier les produits selon vos envies : par prix, stocks restants, rareté...    </p>
 </div>
 
 <?php
