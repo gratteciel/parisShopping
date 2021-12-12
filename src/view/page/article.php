@@ -7,7 +7,7 @@
         //Que avec article immediat
         $article = requeteSqlArray("SELECT * from article a, articleimmediat ai where a.idArticle = ai.idArticle and a.idArticle = '{$_GET['id']}'",$pdo);
         $alerte = requeteSqlArray("SELECT * from alerteStock where idArticle = '{$_GET['id']}' and idUtilisateur = '{$_SESSION['idUtilisateur']}' ",$pdo);
-
+        $photo = requeteSqlArray("SELECT * from photo where idLiaisonTable = '{$_GET['id']}'", $pdo);
         $checkIfVendeurTjrsLa =requeteSqlArray("SELECT u.estVendeur from utilisateur u, article a, vendeur v where a.idArticle = '{$_GET['id']}' and a.vendeurId = v.idVendeur and v.utilisateurId = u.idUtilisateur",$pdo);
         
         $venduParVendeur=false;
@@ -49,6 +49,7 @@
                 Aucune description
             <?php endif; ?>
      </div>
+
     <?php if(LOGGED) : ?>
         <?php if($article[0]['quantite']<=0) : ?>
             <p style="color:red;margin-top:10px;margin-bottom:0px;">Plus en stock!</p>
@@ -63,5 +64,30 @@
         
 
     </div>
+    <div id="carouselExampleCaptions" style="margin: auto" class="carousel slide w-50" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            </br> </br>
+            <div class="carousel-item active">
+                <img style="height: 600px;" src="../<?php echo $article[0]['photoPrincipale']; ?>"
+                     class="d-block w-100" >
+            </div>
+            <?php foreach ($photo as $index => $productInfo): ?>
+                <div class="carousel-item <?php if (0 == $index): ?><?php endif; ?>">
+                    <img style="height: 600px;" src="../<?php echo $productInfo['lien']; ?>"
+                         class="d-block w-100" >
+                </div>
+
+            <?php endforeach; ?>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
 
 <?php endif; ?>
