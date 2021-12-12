@@ -29,30 +29,32 @@ if (!array_key_exists($page, $configPageList)) {
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     </head>
+
     <body class="text-white bg-dark">
         <script src="script_js/main.js"></script>
-        
-        <div class="cover-container w-100 h-100 mx-auto">
-            <?php
-            //include('bdd/donneeSession.php');
-            include("view/header.php");
-            ?>
-
-            
+        <div id="nav">
+            <div class="cover-container w-100 h-100 mx-auto">
+                <?php
+                //include('bdd/donneeSession.php');
+                include("view/header.php");
+                ?>
 
 
-            <main id="body" class="container">
-                <!-- Permet d'afficher les alerts -->
-                <div id="afficheAlert"></div>
+
 
                 <main id="body" class="container">
-              
-                    <?php include("view/page/{$page}.php"); ?>
-                </main>
-            </main>
-        </div>
+                    <!-- Permet d'afficher les alerts -->
+                    <div id="afficheAlert"></div>
 
+                    <main id="body" class="container">
+
+                        <?php include("view/page/{$page}.php"); ?>
+                    </main>
+                </main>
+            </div>
+        </div>
         <?php include("view/footer.php"); ?>
+
         <!-- Permet les interactions avec les alerts -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
       
