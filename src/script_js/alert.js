@@ -82,7 +82,11 @@ if(get('alerts'))
             message = "Vous avez bien accepté les enchères!";
             type="success";
             break;
-
+        case 'addNegociation':
+            message = "Vous avez bien proposé une négociation pour cet article!";
+            type="success";
+            break;
+            
     }
     
 
