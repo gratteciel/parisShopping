@@ -10,7 +10,32 @@
 
             $articlesAVendreImm= requeteSqlArray("SELECT * from article a, articleimmediat ai where vendeurId = {$_SESSION['idVendeur']} and a.idArticle = ai.idArticle", $pdo);
 
-            $articlesAVendreEnch= requeteSqlArray("SELECT * from article a, articleenchere ae where vendeurId = {$_SESSION['idVendeur']} and a.idArticle = ae.idArticle", $pdo);
+            $articlesAVendreEnch= requeteSqlArray("SELECT * from article a, articleenchere ae where vendeurId = {$_SESSION['idVendeur']} and a.idArticle = ae.idArticle and fini=0", $pdo);
+            $winner=null;
+            foreach($articlesAVendreEnch as $a){
+                $result = requeteSqlArray("SELECT * from enchere where idArticleEnchere = {$a['idArticleEnchere']} ORDER BY prixMax DESC", $pdo);
+
+                $winner[$a["idArticleEnchere"]]=null;
+                $userWinner[$a["idArticleEnchere"]]=null;
+                if(isset($result[0])){
+                    $winner[$a["idArticleEnchere"]]=$result[0];
+                    $idUtilisateurWinner=$winner[$a["idArticleEnchere"]]['idUtilisateur'];
+                    $userWinner[$a["idArticleEnchere"]] = requeteSqlArray("SELECT * from utilisateur where idUtilisateur = {$idUtilisateurWinner} ", $pdo);
+                   
+                }
+                    
+               
+            }
+            
+
+            $histoEnch= requeteSqlArray("SELECT * from article a, articleenchere ae where vendeurId = {$_SESSION['idVendeur']} and a.idArticle = ae.idArticle and fini=1", $pdo);
+            $logHistoEnch;
+            foreach($histoEnch as $e){
+                $logHistoEnch[$e['idArticle']]=null;
+                $logHistoEnch[$e['idArticle']] =requeteSqlArray("SELECT * from articlelog,commandeLog,utilisateur where articleId= {$e['idArticle']} and commandeLogId = idCommandeLog and utilisateurId=idUtilisateur", $pdo);
+               
+            }
+           
 
             $photoVendeur = requeteSqlArray("SELECT * from vendeur where idVendeur = {$_SESSION['idVendeur']}", $pdo);
             
@@ -313,9 +338,11 @@
                                 <tr>
                                     <th scope="col">Id de l'article</th>
                                     <th scope="col">Nom</th>
-                                    <th scope="col"  style="width:18%">Catégorie</th>
-                                    <th scope="col">Date de début</th>
-                                    <th scope="col">Date de fin</th>
+                                    <th scope="col"  style="width:13%">Catégorie</th>
+                                    <th scope="col" style="width:13%">Date de début</th>
+                                    <th scope="col" style="width:13%">Date de fin</th>
+                                    <th scope="col">Meilleure offre actuel</th>
+                                    <th scope="col">Utilisateur avec la meilleure offre</th>
                                     
                                 
                                 </tr>
@@ -359,7 +386,17 @@
                                             echo "<td style='width:15%;'>".$a['dateDebut']." (Enchère finie)</td>";
                                             echo " <td style='width:15%;'>".$a['dateFin']." (Enchère finie)</td>"; 
                                         }
-                                                                       
+                                        if($winner[$a['idArticleEnchere']]!=null){
+                                            echo "<td>".$winner[$a['idArticleEnchere']]['prixMax']."€</td>";
+                                        }
+                                        else
+                                         echo "<td>Aucune enchère</td>";
+                                        if($userWinner[$a['idArticleEnchere']]!=null){
+                                            echo "<td>".$userWinner[$a['idArticleEnchere']][0]['mail']."</td>";
+                                        }
+                                        else
+                                         echo "<td>Aucune enchère</td>";
+                                        
                                         
                                         ?>
                                         
@@ -378,6 +415,82 @@
            
     </div>
 
+    <hr>
+    <div  class="flexEspaceEntre  text-center"  style="margin-top:40px">
+    
+        <h1 class="text-light">Historique des enchères : <?php echo count($histoEnch) ?></h1>
+        <?php if(sizeof($histoEnch)!=0) : ?>
+        <div>
+        <button id="afficherPaie" type="button" style="color:white" class="btn btn-outline-secondary "  onclick="afficherOuPas('histoEnch') ">Les afficher</button></h1>
+        </div>
+                       
+    <?php endif; ?>
+        
+        
+    </div>
+    <div id="histoEnch" class="text-center" style="display:none;margin:3%;">
+
+        
+            
+
+                    
+                        <div >
+                        <table class="table table-bordered"  style="color:white;">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Id de l'article</th>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col"  style="width:18%">Catégorie</th>
+                                    <th scope="col">Date de début</th>
+                                    <th scope="col">Date de fin</th>
+                                    <th scope="col">Prix d'achat</th>
+                                    <th scope="col">Payé par</th>
+                                    
+                                
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach ($histoEnch as $a): ?>
+                                
+                                    <tr>
+                                        <?php
+                                        echo "<td><a href='index.php?page=article&id=". $a['idArticle']."'>". $a['idArticle'] ."</a></td>";
+                                        echo "<td><a href='index.php?page=article&id=". $a['idArticle']."'>". $a['nom'] ."</a></td>";
+                                        echo "<td>" ?>
+                                      
+                                            <?php echo $a['categorie']?>
+                                     
+                                        
+                                      
+                                        </td>
+                                        <?php
+                                       
+                                            echo "<td style='width:15%;'>".$a['dateDebut']."</td>";
+                                            echo " <td style='width:15%;'>".$a['dateFin']." </td>"; 
+                                            
+                                            if($logHistoEnch[$a['idArticle']]!=null)
+                                                echo "<td style='width:15%;'>".$logHistoEnch[$a['idArticle']][0]['prixAchat']."€</td>";
+                                            else
+                                                echo "<td style='width:15%;'>Aucune enchère</td>";
+                                            
+                                            if($logHistoEnch[$a['idArticle']]!=null)
+                                                echo "<td style='width:15%;'>".$logHistoEnch[$a['idArticle']][0]['mail']."</td>";
+                                            else
+                                                echo "<td style='width:15%;'>Aucune enchère</td>";
+                                        
+                                        ?>
+                                        
+                                    </tr>
+                                
+                            <?php endforeach; ?>
+                                </tbody>
+                             </table>
+                        </div>
+                       
+                    
+              
+           
+    </div>
 
 
     </div>
