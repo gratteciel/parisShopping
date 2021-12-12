@@ -54,14 +54,21 @@
                     exit();
                 }
                 
-
+                $articleEnchere = requeteSqlArray("SELECT * from articleenchere where idArticleEnchere = '{$_REQUEST['idArtEnchere']}'",$pdo);
                 $encherePrixMax = requeteSqlArray("SELECT MAX(prixMax),idUtilisateur from enchere where idArticleEnchere = '{$_REQUEST['idArtEnchere']}'",$pdo);
                 
                 if($encherePrixMax[0]['MAX(prixMax)']!=null){
                   
                     if($_POST['prix']<= $encherePrixMax[0]['MAX(prixMax)']){
                         $erreur++;
-                        $message="Votre prix doit etre strictement supérieur que la meilleure offre actuelle";
+                        $message="Votre prix doit être strictement supérieur que la meilleure offre actuelle";
+                        
+                    }
+                }
+                else{
+                    if($_POST['prix']<= $articleEnchere[0]['prixDepart']){
+                        $erreur++;
+                        $message="Votre prix doit être strictement supérieur au prix de départ de l'enchère";
                         
                     }
                 }

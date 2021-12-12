@@ -145,6 +145,16 @@
                                     id="prixModiNego"
                                     >
                                 </div>
+                                <div  style="display:none;width:40%;margin-right:10px" class="ench">
+                                        <input type="number" 
+                                                class="form-control form-mod" 
+                                                placeholder="Prix"
+                                            
+                                                name="prixDepart"
+                                                id="prixDepart"
+                                                tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus"  data-bs-content="Prix minimum de l'enchère
+                                        " data-html="true">
+                                    </div>
                                 <div  style="width:30%;display:none" class="ench">
                                     <input type="date" 
                                             class="form-control form-mod" 
@@ -156,19 +166,20 @@
                                     " data-html="true">
                                 </div>
                             </div>
-                            
+                          
+                                
+                
             
-        
-                        
-                            <textarea  
-                                    class="form-control form-mod" 
-                                    id='descriptionModif'
-                                placeholder="Description"
-                                name="descriptionModif"
-                                row="3"
+                            
+                                <textarea  
+                                        class="form-control form-mod" 
+                                        id='descriptionModif'
+                                    placeholder="Description"
+                                    name="descriptionModif"
+                                    row="3"
                                 ></textarea>
         
-                                
+                       
                                 <label for="photoPrincipaleModif" class="form-label  form-mod" style="margin-bottom:0px">La photo principale</label>
                                 <input class="form-control  form-mod" type="file" name="photoPrincipaleModif" id="photoPrincipaleModif">
                                 <label for="autrePhotos" class="form-label form-mod" style="margin-bottom:0px">Autre photos</label>
@@ -341,7 +352,8 @@
                                     <th scope="col"  style="width:13%">Catégorie</th>
                                     <th scope="col" style="width:13%">Date de début</th>
                                     <th scope="col" style="width:13%">Date de fin</th>
-                                    <th scope="col">Meilleure offre actuel</th>
+                                    <th scope="col">Prix de départ</th>
+                                    <th scope="col">Meilleure offre actuelle</th>
                                     <th scope="col">Utilisateur avec la meilleure offre</th>
                                     
                                 
@@ -386,6 +398,7 @@
                                             echo "<td style='width:15%;'>".$a['dateDebut']." (Enchère finie)</td>";
                                             echo " <td style='width:15%;'>".$a['dateFin']." (Enchère finie)</td>"; 
                                         }
+                                        echo "<td>".$a['prixDepart']."€</td>";
                                         if($winner[$a['idArticleEnchere']]!=null){
                                             echo "<td>".$winner[$a['idArticleEnchere']]['prixMax']."€</td>";
                                         }

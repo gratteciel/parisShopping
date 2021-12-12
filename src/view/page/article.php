@@ -20,34 +20,47 @@ include_once PROJECT_ROOT_DIR . '/src/include/Utilisateur.php';
         }
         
         $article = requeteSqlArray("SELECT * from article where idArticle = '{$_GET['id']}'",$pdo);
-        $typeArticle=0;
-        if($article[0]['idArticleImmediat']!=null){//articles immédiat
-            $article = requeteSqlArray("SELECT * from article a, articleimmediat ai where a.idArticle = ai.idArticle and a.idArticle = '{$_GET['id']}'",$pdo);
-        }
-        else if($article[0]['idArticleEnchere']!=null){//article enchere
-            $article = requeteSqlArray("SELECT * from article a, articleenchere ae where a.idArticle = ae.idArticle and a.idArticle = '{$_GET['id']}'",$pdo);
-            $encherePrixMax = requeteSqlArray("SELECT MAX(prixMax) from enchere where idArticleEnchere = '{$article[0]['idArticleEnchere']}'",$pdo);
-          
-            if($encherePrixMax[0]['MAX(prixMax)']!=null)
-                $encherePrixMaxIdUtilisateur = requeteSqlArray("SELECT idUtilisateur from enchere where idArticleEnchere = '{$article[0]['idArticleEnchere']}' and prixMax = {$encherePrixMax[0]['MAX(prixMax)']}",$pdo);
+        if(sizeof($article)==1){
+            $typeArticle=0;
+            if($article[0]['idArticleImmediat']!=null){//articles immédiat
+                $article = requeteSqlArray("SELECT * from article a, articleimmediat ai where a.idArticle = ai.idArticle and a.idArticle = '{$_GET['id']}'",$pdo);
+            }
+            else if($article[0]['idArticleEnchere']!=null){//article enchere
+                $article = requeteSqlArray("SELECT * from article a, articleenchere ae where a.idArticle = ae.idArticle and a.idArticle = '{$_GET['id']}'",$pdo);
+                $encherePrixMax = requeteSqlArray("SELECT MAX(prixMax) from enchere where idArticleEnchere = '{$article[0]['idArticleEnchere']}'",$pdo);
             
-            $typeArticle=1;
-        }
-        
-        if(LOGGED){
-            $alerte = requeteSqlArray("SELECT * from alerteStock where idArticle = '{$_GET['id']}' and idUtilisateur = '{$_SESSION['idUtilisateur']}' ",$pdo);
-            $addressList = Utilisateur::addressList($pdo, $idUtilisateur);
-        $cardList    = Utilisateur::cardList($pdo, $idUtilisateur);
-        }
-        
+                if($encherePrixMax[0]['MAX(prixMax)']!=null)
+                    $encherePrixMaxIdUtilisateur = requeteSqlArray("SELECT idUtilisateur from enchere where idArticleEnchere = '{$article[0]['idArticleEnchere']}' and prixMax = {$encherePrixMax[0]['MAX(prixMax)']}",$pdo);
+                
+                $typeArticle=1;
+            }
+            else if($article[0]['idArticleNegociation']!=null){//article enchere
+                $article = requeteSqlArray("SELECT * from article a, articlenegociation an where a.idArticle = an.idArticle and a.idArticle = '{$_GET['id']}'",$pdo);
 
-        $checkIfVendeurTjrsLa =requeteSqlArray("SELECT u.estVendeur from utilisateur u, article a, vendeur v where a.idArticle = '{$_GET['id']}' and a.vendeurId = v.idVendeur and v.utilisateurId = u.idUtilisateur",$pdo);
-        
-        $venduParVendeur=false;
-        if( sizeof($checkIfVendeurTjrsLa)>0){
-            if( $checkIfVendeurTjrsLa[0]['estVendeur']==1)
-                $venduParVendeur = true;
+                $negociation = requeteSqlArray("SELECT * from negociation where idArticleNegociation='{$article[0]['idArticleNegociation']}'",$pdo);
+
+                $negociationWithUser =requeteSqlArray("SELECT * from negociation where idArticleNegociation='{$article[0]['idArticleNegociation']}' and idUtilisateur = {$_SESSION['idUtilisateur']}",$pdo);
+
+                
+                $typeArticle=2;
+            }
+            
+            if(LOGGED){
+                $alerte = requeteSqlArray("SELECT * from alerteStock where idArticle = '{$_GET['id']}' and idUtilisateur = '{$_SESSION['idUtilisateur']}' ",$pdo);
+                $addressList = Utilisateur::addressList($pdo, $idUtilisateur);
+            $cardList    = Utilisateur::cardList($pdo, $idUtilisateur);
+            }
+            
+
+            $checkIfVendeurTjrsLa =requeteSqlArray("SELECT u.estVendeur from utilisateur u, article a, vendeur v where a.idArticle = '{$_GET['id']}' and a.vendeurId = v.idVendeur and v.utilisateurId = u.idUtilisateur",$pdo);
+            
+            $venduParVendeur=false;
+            if( sizeof($checkIfVendeurTjrsLa)>0){
+                if( $checkIfVendeurTjrsLa[0]['estVendeur']==1)
+                    $venduParVendeur = true;
+            }
         }
+        
         
     
      }
@@ -126,6 +139,7 @@ include_once PROJECT_ROOT_DIR . '/src/include/Utilisateur.php';
                 
             <?php else : ?>
                 <div style="margin-top:10px;margin-bottom:5px">Aucune offre pour l'instant</div> 
+                <div style="margin-top:10px;margin-bottom:5px">Prix de départ de l'enchère: <?php echo $article[0]['prixDepart']?>€ </div> 
             <?php endif; ?>
             <?php if($date < $article[0]['dateDebut']) : ?>
                 <p style="color:red;margin-top:10px;margin-bottom:0px;">L'enchère n'a pas commencé!</p>
@@ -204,8 +218,15 @@ include_once PROJECT_ROOT_DIR . '/src/include/Utilisateur.php';
             <?php else : ?>  
                 <p style="color:red;margin-top:10px;margin-bottom:0px;">L'enchère est finie!</p>
             <?php endif; ?>
-        <?php elseif($typeArticle==2) : ?>
 
+
+
+        <?php elseif($typeArticle==2) : ?>
+            <div style="margin-top:10px;margin-bottom:3px;">Article en vente par négociation</div>
+            <div style="margin-top:10px;margin-bottom:3px;">Prix de base du vendeur: <?php echo $article[0]['prixBase'] ?>€</div>
+
+
+            
         <?php endif; ?>
        
 

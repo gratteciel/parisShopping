@@ -58,11 +58,14 @@
         
         $productImmediat=requeteSqlArray("SELECT * from article a, articleimmediat ai where a.idArticleImmediat = ai.idArticleImmediat", $pdo);
         $productEnchere=requeteSqlArray("SELECT * from article a,  articleenchere ae where a.idArticleEnchere = ae.idArticleEnchere", $pdo);
+        $productNegociation=requeteSqlArray("SELECT * from article a,  articlenegociation an where a.idArticleEnchere = an.idArticleNegociation", $pdo);
      
         if(sizeof($productEnchere)>0)
             $productEnchereSelonId= renvoieKeyId($productEnchere);
         if(sizeof($productImmediat)>0)
             $productImmSelonId= renvoieKeyId($productImmediat);
+        if(sizeof($productNegociation)>0)
+            $productNegociationSelonId= renvoieKeyId($productNegociation);
        
         
     
@@ -80,6 +83,13 @@
      
             if(sizeof($productEnchere)>0)
             $productEnchereSelonId= renvoieKeyId($productEnchere);
+        }
+        else if($fType==3){//Si achat par négociation
+            $productList=requeteSqlArray("SELECT * from article a,  articlenegociation an where a.idArticleNegociation = an.idArticleNegociation", $pdo);
+            $productNegociation=requeteSqlArray("SELECT * from article a,  articlenegociation an where a.idArticleNegociation = an.idArticleNegociation", $pdo);
+     
+            if(sizeof($productNegociation)>0)
+                $productNegociationSelonId= renvoieKeyId($productNegociation);
         }
     } 
     
@@ -99,11 +109,14 @@
         
         $productImmediat=requeteSqlArray("SELECT * from article a, articleimmediat ai where a.idArticleImmediat = ai.idArticleImmediat", $pdo);
         $productEnchere=requeteSqlArray("SELECT * from article a,  articleenchere ae where a.idArticleEnchere = ae.idArticleEnchere", $pdo);
+        $productNegociation=requeteSqlArray("SELECT * from article a,  articlenegociation an where a.idArticleEnchere = an.idArticleNegociation", $pdo);
 
         if(sizeof($productEnchere)>0)
             $productEnchereSelonId= renvoieKeyId($productEnchere);
         if(sizeof($productImmediat)>0)
             $productImmSelonId= renvoieKeyId($productImmediat);
+        if(sizeof($productNegociation)>0)
+            $productNegociationSelonId= renvoieKeyId($productNegociation);
        
 
     } /*else {
@@ -125,6 +138,13 @@
      
             if(sizeof($productEnchere)>0)
             $productEnchereSelonId= renvoieKeyId($productEnchere);
+        }
+        else if($fType==3){//Si achat par négociation
+            $productList=requeteSqlArray("SELECT * from article a,  articlenegociation an where a.idArticleNegociation = an.idArticleNegociation and a.categorie = '{$filtre_qualite_valeur}'", $pdo);
+            $productNegociation=requeteSqlArray("SELECT * from article a,  articlenegociation an where a.idArticleNegociation = an.idArticleNegociation", $pdo);
+     
+            if(sizeof($productNegociation)>0)
+                $productNegociationSelonId= renvoieKeyId($productNegociation);
         }
     }
 ?>

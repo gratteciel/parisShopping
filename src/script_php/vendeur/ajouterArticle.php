@@ -49,6 +49,7 @@ if(isset($_POST["submit"])) {
     if($_POST['nomModif']=="" || $_POST['categorieModif']=="" || empty($_FILES) || $_POST['typeModif']=="")
         $erreur++;
 
+    
     if($_POST['typeModif']=="achatImm"){ //Si achat immédiat
         if($_POST['prixModifImm']==""){
             $erreur++;
@@ -82,16 +83,32 @@ if(isset($_POST["submit"])) {
     else if($_POST['typeModif']=="meilleure"){//si achat par meilleure offre
         if($_POST['dateFin']==""){
             $erreur++;
-            $message="Vous n'avez pas la date de fin de l'enchère";
+            $message="Vous n'avez pas rempli la date de fin de l'enchère";
         }
         if($_POST['dateDebut']==""){
             $erreur++;
-            $message="Vous n'avez pas la date de début de l'enchère";
+            $message="Vous n'avez pas rempli la date de début de l'enchère";
+        }
+        if($_POST['prixDepart']==""){
+            $erreur++;
+            $message="Vous n'avez pas rempli le prix minimun de l'enchère";
         }
 
     }
     else if($_POST['typeModif']=="nego"){//si achat par negociation
-    
+        if($_POST['prixModifNego']==""){
+            $erreur++;
+            $message="Vous n'avez pas inséré de prix de base";
+        }
+        else if(!is_numeric($_POST['prixModifNego'])){
+            $erreur++;
+            $message="Le prix de basedoit etre un entier!";
+        }
+            
+        else if(intval($_POST['prixModifNego'])<0){
+            $message="Le prix de base doit etre un entier positif!";
+            $erreur++;
+        }
 
     }
     else{
@@ -167,12 +184,19 @@ if(isset($_POST["submit"])) {
             //Ajout idArticleImmediat dans article
             requeteSqlArray("UPDATE article set idArticleImmediat= '{$idArticleImm[0]['LAST_INSERT_ID()']}' where idArticle = '{$idArticle[0]['LAST_INSERT_ID()']}'",$pdo);
         }
-        else if($_POST['typeModif']=="meilleure"){
-            requeteSqlArray("INSERT INTO articleenchere (dateDebut,idArticle,dateFin) values ('{$_POST['dateDebut']}','{$idArticle[0]['LAST_INSERT_ID()']}','{$_POST['dateFin']}');",$pdo);
+        else if($_POST['typeModif']=="meilleure"){//si meilleure offre
+            requeteSqlArray("INSERT INTO articleenchere (dateDebut,idArticle,dateFin,prixDepart) values ('{$_POST['dateDebut']}','{$idArticle[0]['LAST_INSERT_ID()']}','{$_POST['dateFin']}','{$_POST['prixDepart']}');",$pdo);
             $idArticleEnch=requeteSqlArray("SELECT LAST_INSERT_ID();",$pdo);
 
-            //Ajout idArticleImmediat dans article
+            //Ajout idArticleEnchere dans article
             requeteSqlArray("UPDATE article set idArticleEnchere= '{$idArticleEnch[0]['LAST_INSERT_ID()']}' where idArticle = '{$idArticle[0]['LAST_INSERT_ID()']}'",$pdo);
+        }
+        else if($_POST['typeModif']=="nego"){//Si negociation
+            requeteSqlArray("INSERT INTO articlenegociation (prixBase,idArticle) values ('{$_POST['prixModifNego']}','{$idArticle[0]['LAST_INSERT_ID()']}');",$pdo);
+            $idArticleNego=requeteSqlArray("SELECT LAST_INSERT_ID();",$pdo);
+
+            //Ajout idArticleEnchere dans article
+            requeteSqlArray("UPDATE article set idArticleNegociation= '{$idArticleNego[0]['LAST_INSERT_ID()']}' where idArticle = '{$idArticle[0]['LAST_INSERT_ID()']}'",$pdo);
         }
         
         for($i=0; $i<sizeof($_FILES['autrePhotos']['name']); $i++){
